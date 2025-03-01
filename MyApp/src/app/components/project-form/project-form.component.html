@@ -1,0 +1,18 @@
+<div class="project-form">
+    <h2>{{ projectToEdit ? 'Edytuj Projekt' : 'Dodaj Projekt' }}</h2>
+    <form [formGroup]="projectForm" (ngSubmit)="saveProject()">
+      <div>
+        <label for="name">Nazwa:</label>
+        <input id="name" formControlName="name" />
+      </div>
+      <div>
+        <label for="description">Opis:</label>
+        <input id="description" formControlName="description" />
+      </div>
+      <button type="submit">{{ projectToEdit ? 'Zapisz' : 'Dodaj' }}</button>
+      @if(projectToEdit){
+        <button (click)="resetProjectForm(true)">{{ 'Anuluj' }}</button>
+      }
+    </form>
+  </div>
+  
