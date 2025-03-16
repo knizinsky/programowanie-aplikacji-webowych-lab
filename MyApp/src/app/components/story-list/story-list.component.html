@@ -1,0 +1,18 @@
+<div class="story-list">
+  <h2>Lista Historyjek</h2>
+  <app-story-form [projectId]="currentProjectId"></app-story-form>
+  <ul>
+    @for (story of stories; track $index) {
+    <li>
+      <strong>{{ story.name }}</strong
+      ><br />
+      {{ story.description }}
+      <button (click)="editStory(story)">Edytuj</button>
+      <button (click)="deleteStory(story.id)">Usuń</button>
+    </li>
+    }
+  </ul>
+  @if(stories.length === 0){
+  <span>Brak historyjek...</span>
+  }
+</div>

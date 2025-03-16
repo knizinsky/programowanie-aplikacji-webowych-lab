@@ -1,0 +1,31 @@
+<div class="story-form">
+  <h2>{{ storyToEdit ? 'Edytuj Historyjkę' : 'Dodaj Historyjkę' }}</h2>
+  <form [formGroup]="storyForm" (ngSubmit)="saveStory()">
+    <div>
+      <label for="name">Nazwa:</label>
+      <input id="name" formControlName="name" />
+    </div>
+    <div>
+      <label for="description">Opis:</label>
+      <input id="description" formControlName="description" />
+    </div>
+    <div>
+      <label for="priority">Priorytet:</label>
+      <select id="priority" formControlName="priority">
+        <option value="low">Niski</option>
+        <option value="medium">Średni</option>
+        <option value="high">Wysoki</option>
+      </select>
+    </div>
+    <div>
+      <label for="status">Stan:</label>
+      <select id="status" formControlName="status">
+        <option value="todo">Do zrobienia</option>
+        <option value="doing">W trakcie</option>
+        <option value="done">Zrobione</option>
+      </select>
+    </div>
+    <button type="submit">{{ storyToEdit ? 'Zapisz' : 'Dodaj' }}</button>
+    <button type="button" (click)="resetStoryForm()">Anuluj</button>
+  </form>
+</div>
