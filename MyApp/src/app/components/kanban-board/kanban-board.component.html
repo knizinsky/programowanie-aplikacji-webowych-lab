@@ -1,0 +1,20 @@
+<div class="kanban-board">
+  <div class="column">
+    <h3>To Do</h3>
+    <div *ngFor="let task of todo">
+      <app-task-details [task]="task"></app-task-details>
+    </div>
+  </div>
+  <div class="column">
+    <h3>Doing</h3>
+    <div *ngFor="let task of doing">
+      <app-task-details [task]="task"></app-task-details>
+    </div>
+  </div>
+  <div class="column">
+    <h3>Done</h3>
+    <div *ngFor="let task of done">
+      <app-task-details [task]="task"></app-task-details>
+    </div>
+  </div>
+</div>

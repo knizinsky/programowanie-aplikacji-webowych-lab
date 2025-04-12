@@ -1,0 +1,8 @@
+<div class="user-list">
+  <h2>Lista Użytkowników</h2>
+  <ul>
+    @for (user of users; track $index) {
+        <li>{{ user.firstName }} {{ user.lastName }} - {{ user.role }}</li>
+    }
+  </ul>
+</div>

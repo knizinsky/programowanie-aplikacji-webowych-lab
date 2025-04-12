@@ -3,6 +3,7 @@ import { ProjectFormComponent } from './components/project-form/project-form.com
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { StoryListComponent } from './components/story-list/story-list.component';
 import { StoryFormComponent } from './components/story-form/story-form.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { StoryFormComponent } from './components/story-form/story-form.component
     ProjectFormComponent,
     ProjectListComponent,
     StoryListComponent,
+    UserListComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

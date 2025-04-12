@@ -1,0 +1,32 @@
+<div class="task-details">
+  <h3>{{ task.name }}</h3>
+  <p><strong>Opis:</strong> {{ task.description }}</p>
+  <p><strong>Priorytet:</strong> {{ task.priority | titlecase }}</p>
+  <p><strong>Przewidywany czas:</strong> {{ task.estimatedTime }} godz.</p>
+  <p><strong>Data dodania:</strong> {{ task.createdAt | date : "short" }}</p>
+  <p *ngIf="task.startDate">
+    <strong>Data startu:</strong> {{ task.startDate | date : "short" }}
+  </p>
+  <p *ngIf="task.endDate">
+    <strong>Data zakończenia:</strong> {{ task.endDate | date : "short" }}
+  </p>
+  <p *ngIf="task.assignedUserId">
+    <strong>Przypisany użytkownik:</strong> {{ task.assignedUserId }}
+  </p>
+
+  <div *ngIf="task.status === 'todo'">
+    <label for="assignUser">Przypisz użytkownika:</label>
+    <select id="assignUser" (change)="assignUser($event.target.value)">
+      <option value="" disabled selected>Wybierz użytkownika</option>
+      @for (user of users; track $index) {
+          <option [value]="user.id">
+            {{ user.firstName }} {{ user.lastName }}
+          </option>
+      }
+    </select>
+  </div>
+
+  <button *ngIf="task.status === 'doing'" (click)="markAsDone()">
+    Oznacz jako zakończone
+  </button>
+</div>
