@@ -1,5 +1,5 @@
 <div class="task-form">
-  <h2>{{ taskToEdit ? 'Edytuj Zadanie' : 'Dodaj Zadanie' }}</h2>
+  <h2>{{ taskToEdit ? "Edytuj Zadanie" : "Dodaj Zadanie" }}</h2>
   <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
     <div>
       <label for="name">Nazwa:</label>
@@ -24,11 +24,23 @@
     <div>
       <label for="assignedUserId">Przypisz użytkownika:</label>
       <select id="assignedUserId" formControlName="assignedUserId">
-        <option *ngFor="let user of users" [value]="user.id">
+        @for (user of users; track $index) {
+        <option [value]="user.id">
           {{ user.firstName }} {{ user.lastName }}
         </option>
+        }
       </select>
     </div>
-    <button type="submit">{{ taskToEdit ? 'Zapisz' : 'Dodaj' }}</button>
+    <div>
+      <label for="storyId">Przypisz historyjkę:</label>
+      <select id="storyId" formControlName="storyId">
+        @for (story of stories; track $index) {
+        <option [value]="story.id">
+          {{ story.name }}
+        </option>
+        }
+      </select>
+    </div>
+    <button type="submit">{{ taskToEdit ? "Zapisz" : "Dodaj" }}</button>
   </form>
 </div>

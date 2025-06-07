@@ -4,6 +4,8 @@ import { ProjectListComponent } from './components/project-list/project-list.com
 import { StoryListComponent } from './components/story-list/story-list.component';
 import { StoryFormComponent } from './components/story-form/story-form.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { TaskFormComponent } from './components/task-form/task-form.component';
+import { KanbanBoardComponent } from './components/kanban-board/kanban-board.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,9 @@ import { UserListComponent } from './components/user-list/user-list.component';
     ProjectFormComponent,
     ProjectListComponent,
     StoryListComponent,
-    UserListComponent
+    UserListComponent,
+    TaskFormComponent,
+    KanbanBoardComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

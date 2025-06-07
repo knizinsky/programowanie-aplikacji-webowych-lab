@@ -5,6 +5,8 @@ import { Task } from '../../models/task.model';
 import { v4 as uuidv4 } from 'uuid';
 import { Subscription } from 'rxjs';
 import { UserService, User } from '../../services/user.service';
+import { Story } from '../../models/story.model';
+import { StoryService } from '../../services/story.service';
 
 @Component({
   selector: 'app-task-form',
@@ -12,16 +14,17 @@ import { UserService, User } from '../../services/user.service';
   imports: [ReactiveFormsModule],
 })
 export class TaskFormComponent implements OnInit, OnDestroy {
-  @Input() storyId!: string | null;
   private editingTaskSub = new Subscription();
   taskForm: FormGroup;
   taskToEdit!: Task | null;
   users: User[] = [];
+  stories: Story[] = [];
 
   constructor(
-    private fb: FormBuilder,
-    private taskService: TaskService,
-    private userService: UserService
+    private readonly fb: FormBuilder,
+    private readonly taskService: TaskService,
+    private readonly userService: UserService,
+    private readonly storyService: StoryService,
   ) {
     this.taskForm = this.fb.group({
       name: '',
@@ -30,6 +33,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       estimatedTime: 0,
       assignedUserId: null,
       status: 'todo',
+      storyId: null,
     });
   }
 
@@ -37,6 +41,8 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     this.users = this.userService.getUsers().filter(
       (user) => user.role === 'developer' || user.role === 'devops'
     );
+
+    this.stories = this.storyService.getStories();
 
     this.editingTaskSub = this.taskService.currentEditingTask.subscribe(
       (task) => {
@@ -54,7 +60,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       name: this.taskForm.value.name,
       description: this.taskForm.value.description,
       priority: this.taskForm.value.priority,
-      storyId: this.storyId,
+      storyId: this.taskForm.value.storyId,
       estimatedTime: this.taskForm.value.estimatedTime,
       status: this.taskForm.value.status,
       createdAt: this.taskToEdit?.createdAt || new Date(),

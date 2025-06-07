@@ -1,17 +1,30 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
+import { User, UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-task-details',
   templateUrl: './task-details.component.html',
 })
-export class TaskDetailsComponent {
+export class TaskDetailsComponent implements OnInit {
   @Input() task!: Task;
+  users: User[] = [];
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private readonly taskService: TaskService,
+    private readonly userService: UserService
+  ) {}
 
-  assignUser(userId: string): void {
+  ngOnInit(): void {
+    setTimeout(() => {
+      console.log(this.task);
+    }, 2000);
+    this.users = this.userService.getUsers();
+  }
+
+  assignUser(e: Event): void {
+    const userId = (e as any).target.value;
     this.task.assignedUserId = userId;
     this.task.status = 'doing';
     this.task.startDate = new Date();
