@@ -1,4 +1,6 @@
 <div class="user-list">
+  <h2>Zalogowany użytkownik</h2>
+  <p>{{ currentUser.firstName }} {{ currentUser.lastName }} - {{ currentUser.role }}</p>
   <h2>Lista Użytkowników</h2>
   <ul>
     @for (user of users; track $index) {

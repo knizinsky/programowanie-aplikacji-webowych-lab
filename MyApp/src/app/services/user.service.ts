@@ -18,7 +18,7 @@ export class UserService {
     { id: '3', firstName: 'Alice', lastName: 'Johnson', role: 'devops' }
   ];
 
-  private readonly userSubject = new BehaviorSubject<User>(this.users[0]); // Domyślnie zalogowany admin
+  private readonly userSubject = new BehaviorSubject<User>(this.users[0]);
 
   getUser(): Observable<User> {
     return this.userSubject.asObservable();

@@ -1,8 +1,11 @@
 <div class="story-list">
-  <h2>Lista Historyjek</h2>
   <app-story-form [projectId]="currentProjectId"></app-story-form>
+  <h2>Lista Historyjek</h2>
+
+  <!-- TODO Stories -->
+  <h3>Do zrobienia</h3>
   <ul>
-    @for (story of stories; track $index) {
+    @for (story of todoStories; track $index) {
     <li>
       <strong>{{ story.name }}</strong
       ><br />
@@ -12,7 +15,41 @@
     </li>
     }
   </ul>
-  @if(stories.length === 0){
-  <span>Brak historyjek...</span>
+  @if(todoStories.length === 0){
+  <span>Brak historyjek do zrobienia...</span>
+  }
+
+  <!-- DOING Stories -->
+  <h3>W trakcie</h3>
+  <ul>
+    @for (story of doingStories; track $index) {
+    <li>
+      <strong>{{ story.name }}</strong
+      ><br />
+      {{ story.description }}
+      <button (click)="editStory(story)">Edytuj</button>
+      <button (click)="deleteStory(story.id)">Usuń</button>
+    </li>
+    }
+  </ul>
+  @if(doingStories.length === 0){
+  <span>Brak historyjek w trakcie...</span>
+  }
+
+  <!-- DONE Stories -->
+  <h3>Zamknięte</h3>
+  <ul>
+    @for (story of doneStories; track $index) {
+    <li>
+      <strong>{{ story.name }}</strong
+      ><br />
+      {{ story.description }}
+      <button (click)="editStory(story)">Edytuj</button>
+      <button (click)="deleteStory(story.id)">Usuń</button>
+    </li>
+    }
+  </ul>
+  @if(doneStories.length === 0){
+  <span>Brak zamkniętych historyjek...</span>
   }
 </div>

@@ -16,10 +16,22 @@ export class StoryListComponent implements OnInit, OnDestroy {
   stories: Story[] = [];
   currentProjectId: string | null = null;
 
+  get todoStories(): Story[] {
+    return this.stories.filter((story) => story.status === 'todo');
+  }
+
+  get doingStories(): Story[] {
+    return this.stories.filter((story) => story.status === 'doing');
+  }
+
+  get doneStories(): Story[] {
+    return this.stories.filter((story) => story.status === 'done');
+  }
+
   constructor(
     private storyService: StoryService,
     private projectService: ProjectService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.subToStoriesChange();
@@ -33,15 +45,19 @@ export class StoryListComponent implements OnInit, OnDestroy {
   }
 
   private subToCurrentProject(): void {
-    this.currentProjectSub = this.projectService.currentProject.subscribe(project => {
-      this.currentProjectId = project ? project.id : null;
-      this.getStories();
-    });
+    this.currentProjectSub = this.projectService.currentProject.subscribe(
+      (project) => {
+        this.currentProjectId = project ? project.id : null;
+        this.getStories();
+      }
+    );
   }
 
   private getStories(): void {
     if (this.currentProjectId) {
-      this.stories = this.storyService.getStories().filter(story => story.projectId === this.currentProjectId);
+      this.stories = this.storyService
+        .getStories()
+        .filter((story) => story.projectId === this.currentProjectId);
     } else {
       this.stories = [];
     }
