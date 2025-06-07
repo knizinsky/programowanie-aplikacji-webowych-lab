@@ -1,0 +1,49 @@
+.login-form {
+  padding: 24px 24px 9px;
+}
+
+:host {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.login-card {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.login-icon {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-icon {
+  font-size: 25px;
+}
+
+.login-actions {
+  text-align: right;
+}
+
+.mat-mdc-card-header {
+  justify-content: center;
+}
+
+mat-form-field {
+  margin-bottom: 10px;
+}
+
+mat-card-subtitle{
+  color: #969696;
+}

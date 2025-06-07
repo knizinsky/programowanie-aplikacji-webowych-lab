@@ -1,18 +1,37 @@
-<div class="project-form">
-    <h2>{{ projectToEdit ? 'Edytuj Projekt' : 'Dodaj Projekt' }}</h2>
-    <form [formGroup]="projectForm" (ngSubmit)="saveProject()">
-      <div>
-        <label for="name">Nazwa:</label>
-        <input id="name" formControlName="name" />
+<div class="project-form mat-elevation-z2">
+  <h2>{{ projectToEdit ? "Edytuj Projekt" : "Dodaj Projekt" }}</h2>
+  <mat-card>
+
+    <form
+      [formGroup]="projectForm"
+      (ngSubmit)="saveProject()"
+      class="form-container"
+    >
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nazwa</mat-label>
+        <input matInput formControlName="name" id="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Opis</mat-label>
+        <input matInput formControlName="description" id="description" />
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit">
+          {{ projectToEdit ? "Zapisz" : "Dodaj" }}
+        </button>
+
+        @if (projectToEdit) {
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="resetProjectForm(true)"
+        >
+          Anuluj
+        </button>
+        }
       </div>
-      <div>
-        <label for="description">Opis:</label>
-        <input id="description" formControlName="description" />
-      </div>
-      <button type="submit">{{ projectToEdit ? 'Zapisz' : 'Dodaj' }}</button>
-      @if(projectToEdit){
-        <button (click)="resetProjectForm(true)">{{ 'Anuluj' }}</button>
-      }
     </form>
-  </div>
-  
+  </mat-card>
+</div>

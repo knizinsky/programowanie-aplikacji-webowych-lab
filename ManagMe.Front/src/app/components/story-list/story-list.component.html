@@ -1,55 +1,98 @@
 <div class="story-list">
   <app-story-form [projectId]="currentProjectId"></app-story-form>
+
   <h2>Lista Historyjek</h2>
 
-  <!-- TODO Stories -->
-  <h3>Do zrobienia</h3>
-  <ul>
-    @for (story of todoStories; track $index) {
-    <li>
-      <strong>{{ story.name }}</strong
-      ><br />
-      {{ story.description }}
-      <button (click)="editStory(story)">Edytuj</button>
-      <button (click)="deleteStory(story.id)">Usuń</button>
-    </li>
+  <!-- Sekcja: Do zrobienia -->
+  <section>
+    <h3>Do zrobienia</h3>
+    @if (todoStories.length) {
+    <div class="story-cards">
+      @for (story of todoStories; track $index) {
+      <mat-card class="story-card" color="accent">
+        <mat-card-title>{{ story.name }}</mat-card-title>
+        <mat-card-content>
+          <p>{{ story.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-stroked-button color="primary" (click)="editStory(story)">
+            Edytuj
+          </button>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="deleteStory(story.id)"
+          >
+            Usuń
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      }
+    </div>
+    } @else {
+    <span class="no-stories">Brak historyjek do zrobienia...</span>
     }
-  </ul>
-  @if(todoStories.length === 0){
-  <span>Brak historyjek do zrobienia...</span>
-  }
+  </section>
 
-  <!-- DOING Stories -->
-  <h3>W trakcie</h3>
-  <ul>
-    @for (story of doingStories; track $index) {
-    <li>
-      <strong>{{ story.name }}</strong
-      ><br />
-      {{ story.description }}
-      <button (click)="editStory(story)">Edytuj</button>
-      <button (click)="deleteStory(story.id)">Usuń</button>
-    </li>
+  <!-- Sekcja: W trakcie -->
+  <section>
+    <h3>W trakcie</h3>
+    @if (doingStories.length) {
+    <div class="story-cards">
+      @for (story of doingStories; track $index) {
+      <mat-card class="story-card">
+        <mat-card-title>{{ story.name }}</mat-card-title>
+        <mat-card-content>
+          <p>{{ story.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-stroked-button color="primary" (click)="editStory(story)">
+            Edytuj
+          </button>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="deleteStory(story.id)"
+          >
+            Usuń
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      }
+    </div>
+    } @else {
+    <span class="no-stories">Brak historyjek w trakcie...</span>
     }
-  </ul>
-  @if(doingStories.length === 0){
-  <span>Brak historyjek w trakcie...</span>
-  }
+  </section>
 
-  <!-- DONE Stories -->
-  <h3>Zamknięte</h3>
-  <ul>
-    @for (story of doneStories; track $index) {
-    <li>
-      <strong>{{ story.name }}</strong
-      ><br />
-      {{ story.description }}
-      <button (click)="editStory(story)">Edytuj</button>
-      <button (click)="deleteStory(story.id)">Usuń</button>
-    </li>
+  <!-- Sekcja: Zamknięte -->
+  <section>
+    <h3>Zamknięte</h3>
+    @if (doneStories.length) {
+    <div class="story-cards">
+      @for (story of doneStories; track $index) {
+      <mat-card class="story-card done">
+        <mat-card-title>{{ story.name }}</mat-card-title>
+        <mat-card-content>
+          <p>{{ story.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-stroked-button color="primary" (click)="editStory(story)">
+            Edytuj
+          </button>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="deleteStory(story.id)"
+          >
+            Usuń
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      }
+    </div>
+    } @else {
+    <span class="no-stories">Brak zamkniętych historyjek...</span>
     }
-  </ul>
-  @if(doneStories.length === 0){
-  <span>Brak zamkniętych historyjek...</span>
-  }
+  </section>
 </div>

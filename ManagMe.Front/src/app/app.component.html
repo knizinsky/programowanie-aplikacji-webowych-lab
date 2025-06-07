@@ -1,21 +1,23 @@
-<form (ngSubmit)="login()">
-  <label
-    >Login: <input type="text" [(ngModel)]="loginValue" name="login"
-  /></label>
-  <label
-    >Hasło: <input type="password" [(ngModel)]="password" name="password"
-  /></label>
-  <button type="submit">Zaloguj</button>
-</form>
-<hr />
-<app-project-form></app-project-form>
-<hr />
-<app-project-list></app-project-list>
-<hr />
-<app-story-list></app-story-list>
-<hr />
-<app-user-list></app-user-list>
-<hr />
-<app-task-form></app-task-form>
-<hr />
-<app-kanban-board></app-kanban-board>
+ @if (!isLoggedIn) {
+      <app-login-form (loggedIn)="handleLogin()"></app-login-form>
+    } @else {
+      <mat-tab-group>
+        <mat-tab label="Projekty">
+          <app-project-form></app-project-form>
+          <app-project-list></app-project-list>
+        </mat-tab>
+        <mat-tab label="Historyjki">
+          <app-story-list></app-story-list>
+        </mat-tab>
+        <mat-tab label="Użytkownicy">
+          <app-user-list></app-user-list>
+        </mat-tab>
+        <mat-tab label="Zadania">
+          <app-task-form></app-task-form>
+          <app-kanban-board></app-kanban-board>
+        </mat-tab>
+        <mat-tab label="Wyloguj">
+          <button mat-raised-button color="warn" (click)="logout()">Wyloguj</button>
+        </mat-tab>
+      </mat-tab-group>
+    }

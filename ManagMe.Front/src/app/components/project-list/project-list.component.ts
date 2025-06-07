@@ -2,11 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Project } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
 import { Subscription } from 'rxjs';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss'],
+  imports: [MatCardModule, MatButtonModule],
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
   private projectsChangeSub = new Subscription();

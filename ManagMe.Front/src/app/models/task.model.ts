@@ -4,7 +4,7 @@ export interface Task {
   description: string;
   priority: 'low' | 'medium' | 'high';
   storyId: string | null;
-  estimatedTime: number; // Przewidywany czas wykonania w godzinach
+  estimatedTime: number;
   status: 'todo' | 'doing' | 'done';
   createdAt: Date;
   startDate: Date | null;

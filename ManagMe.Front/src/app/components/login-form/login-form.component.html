@@ -1,0 +1,41 @@
+<mat-card class="login-card">
+  <mat-card-header>
+    <div mat-card-avatar class="login-icon">
+      <mat-icon color="primary">lock</mat-icon>
+    </div>
+    <mat-card-title>Zaloguj się</mat-card-title>
+    <mat-card-subtitle>Dostęp do panelu projektowego</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Login</mat-label>
+        <input matInput type="text" formControlName="login" />
+        @if(loginForm.get('login')?.invalid && loginForm.get('login')?.touched){
+        <mat-error> Wymagany login </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Hasło</mat-label>
+        <input matInput type="password" formControlName="password" />
+        @if(loginForm.get('password')?.invalid &&
+        loginForm.get('password')?.touched){
+        <mat-error> Wymagane hasło </mat-error>
+        }
+      </mat-form-field>
+
+      <div class="login-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loginForm.invalid"
+        >
+          Zaloguj
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

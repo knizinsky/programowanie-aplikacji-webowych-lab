@@ -1,25 +1,40 @@
-<div class="task-details">
-  <h3>{{ task.name }}</h3>
-  <p><strong>Opis:</strong> {{ task.description }}</p>
-  <p><strong>Priorytet:</strong> {{ task.priority }}</p>
-  <p><strong>Przewidywany czas:</strong> {{ task.estimatedTime }} godz.</p>
-  <p><strong>Data dodania:</strong> {{ task.createdAt }}</p>
-  <p><strong>ID Historyjki:</strong> {{ task.storyId }}</p>
-  @if(task.startDate){
-  <p><strong>Data startu:</strong> {{ task.startDate }}</p>
-  } @if(task.endDate){
-  <p><strong>Data zakończenia:</strong> {{ task.endDate }}</p>
-  } @if(task.assignedUserId){
-  <p><strong>Przypisany użytkownik:</strong> {{ task.assignedUserId }}</p>
-  } @if(task.status === 'todo'){
-  <label for="assignUser">Przypisz użytkownika:</label>
-  <select id="assignUser" (change)="assignUser($event)">
-    <option value="" disabled selected>Wybierz użytkownika</option>
-    @for (user of users; track $index) {
-    <option [value]="user.id">{{ user.firstName }} {{ user.lastName }}</option>
+<mat-card class="task-details mat-elevation-z2">
+  <mat-card-title>{{ task.name }}</mat-card-title>
+  <mat-card-content>
+    <p><strong>Opis:</strong> {{ task.description }}</p>
+    <p><strong>Priorytet:</strong> {{ task.priority }}</p>
+    <p><strong>Przewidywany czas:</strong> {{ task.estimatedTime }} godz.</p>
+    <p><strong>Data dodania:</strong> {{ task.createdAt }}</p>
+    <p><strong>ID Historyjki:</strong> {{ task.storyId }}</p>
+
+    @if (task.startDate) {
+      <p><strong>Data startu:</strong> {{ task.startDate }}</p>
     }
-  </select>
-  } @if(task.status === 'doing'){
-  <button (click)="markAsDone()">Oznacz jako zakończone</button>
-  }
-</div>
+    @if (task.endDate) {
+      <p><strong>Data zakończenia:</strong> {{ task.endDate }}</p>
+    }
+    @if (task.assignedUserId) {
+      <p><strong>Przypisany użytkownik:</strong> {{ task.assignedUserId }}</p>
+    }
+
+    @if (task.status === 'todo') {
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Przypisz użytkownika</mat-label>
+        <mat-select id="assignUser" (selectionChange)="assignUser($event)">
+          <mat-option disabled selected value="">Wybierz użytkownika</mat-option>
+          @for (user of users; track $index) {
+            <mat-option [value]="user.id">
+              {{ user.firstName }} {{ user.lastName }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
+    @if (task.status === 'doing') {
+      <button mat-raised-button color="primary" (click)="markAsDone()">
+        Oznacz jako zakończone
+      </button>
+    }
+  </mat-card-content>
+</mat-card>

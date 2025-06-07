@@ -1,10 +1,18 @@
 <div class="user-list">
-  <h2>Zalogowany użytkownik</h2>
-  <p>{{ currentUser.firstName }} {{ currentUser.lastName }} - {{ currentUser.role }}</p>
+  <mat-card class="user-card mat-elevation-z2">
+    <mat-card-title>Zalogowany użytkownik</mat-card-title>
+    <mat-card-content>
+      <p>{{ currentUser.firstName }} {{ currentUser.lastName }} - {{ currentUser.role }}</p>
+    </mat-card-content>
+  </mat-card>
+
   <h2>Lista Użytkowników</h2>
-  <ul>
+
+  <mat-list>
     @for (user of users; track $index) {
-        <li>{{ user.firstName }} {{ user.lastName }} - {{ user.role }}</li>
+      <mat-list-item>
+        {{ user.firstName }} {{ user.lastName }} — {{ user.role }}
+      </mat-list-item>
     }
-  </ul>
+  </mat-list>
 </div>

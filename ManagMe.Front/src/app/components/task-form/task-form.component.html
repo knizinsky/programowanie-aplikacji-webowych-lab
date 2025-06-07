@@ -1,46 +1,62 @@
-<div class="task-form">
-  <h2>{{ taskToEdit ? "Edytuj Zadanie" : "Dodaj Zadanie" }}</h2>
-  <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
-    <div>
-      <label for="name">Nazwa:</label>
-      <input id="name" formControlName="name" />
-    </div>
-    <div>
-      <label for="description">Opis:</label>
-      <input id="description" formControlName="description" />
-    </div>
-    <div>
-      <label for="priority">Priorytet:</label>
-      <select id="priority" formControlName="priority">
-        <option value="low">Niski</option>
-        <option value="medium">Średni</option>
-        <option value="high">Wysoki</option>
-      </select>
-    </div>
-    <div>
-      <label for="estimatedTime">Przewidywany czas (godz.):</label>
-      <input id="estimatedTime" type="number" formControlName="estimatedTime" />
-    </div>
-    <div>
-      <label for="assignedUserId">Przypisz użytkownika:</label>
-      <select id="assignedUserId" formControlName="assignedUserId">
+<mat-card class="task-form mat-elevation-z2">
+  <mat-card-title>{{
+    taskToEdit ? "Edytuj Zadanie" : "Dodaj Zadanie"
+  }}</mat-card-title>
+
+  <form [formGroup]="taskForm" (ngSubmit)="saveTask()" class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nazwa</mat-label>
+      <input matInput formControlName="name" id="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Opis</mat-label>
+      <input matInput formControlName="description" id="description" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Priorytet</mat-label>
+      <mat-select formControlName="priority" id="priority">
+        <mat-option value="low">Niski</mat-option>
+        <mat-option value="medium">Średni</mat-option>
+        <mat-option value="high">Wysoki</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Przewidywany czas (godz.)</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="estimatedTime"
+        id="estimatedTime"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Przypisz użytkownika</mat-label>
+      <mat-select formControlName="assignedUserId" id="assignedUserId">
         @for (user of users; track $index) {
-        <option [value]="user.id">
-          {{ user.firstName }} {{ user.lastName }}
-        </option>
+        <mat-option [value]="user.id"
+          >{{ user.firstName }} {{ user.lastName }}</mat-option
+        >
         }
-      </select>
-    </div>
-    <div>
-      <label for="storyId">Przypisz historyjkę:</label>
-      <select id="storyId" formControlName="storyId">
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Przypisz historyjkę</mat-label>
+      <mat-select formControlName="storyId" id="storyId">
         @for (story of stories; track $index) {
-        <option [value]="story.id">
-          {{ story.name }}
-        </option>
+        <mat-option [value]="story.id">{{ story.name }}</mat-option>
         }
-      </select>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit">
+        {{ taskToEdit ? "Zapisz" : "Dodaj" }}
+      </button>
     </div>
-    <button type="submit">{{ taskToEdit ? "Zapisz" : "Dodaj" }}</button>
   </form>
-</div>
+</mat-card>

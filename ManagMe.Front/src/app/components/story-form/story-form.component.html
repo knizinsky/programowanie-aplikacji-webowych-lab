@@ -1,31 +1,42 @@
-<div class="story-form">
-  <h2>{{ storyToEdit ? 'Edytuj Historyjkę' : 'Dodaj Historyjkę' }}</h2>
-  <form [formGroup]="storyForm" (ngSubmit)="saveStory()">
-    <div>
-      <label for="name">Nazwa:</label>
-      <input id="name" formControlName="name" />
+<div class="story-form mat-elevation-z2">
+  <h2>{{ storyToEdit ? "Edytuj Historyjkę" : "Dodaj Historyjkę" }}</h2>
+
+  <form [formGroup]="storyForm" (ngSubmit)="saveStory()" class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nazwa</mat-label>
+      <input matInput formControlName="name" id="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Opis</mat-label>
+      <input matInput formControlName="description" id="description" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Priorytet</mat-label>
+      <mat-select formControlName="priority" id="priority">
+        <mat-option value="low">Niski</mat-option>
+        <mat-option value="medium">Średni</mat-option>
+        <mat-option value="high">Wysoki</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Stan</mat-label>
+      <mat-select formControlName="status" id="status">
+        <mat-option value="todo">Do zrobienia</mat-option>
+        <mat-option value="doing">W trakcie</mat-option>
+        <mat-option value="done">Zrobione</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit">
+        {{ storyToEdit ? "Zapisz" : "Dodaj" }}
+      </button>
+      <button mat-stroked-button type="button" (click)="resetStoryForm()">
+        Anuluj
+      </button>
     </div>
-    <div>
-      <label for="description">Opis:</label>
-      <input id="description" formControlName="description" />
-    </div>
-    <div>
-      <label for="priority">Priorytet:</label>
-      <select id="priority" formControlName="priority">
-        <option value="low">Niski</option>
-        <option value="medium">Średni</option>
-        <option value="high">Wysoki</option>
-      </select>
-    </div>
-    <div>
-      <label for="status">Stan:</label>
-      <select id="status" formControlName="status">
-        <option value="todo">Do zrobienia</option>
-        <option value="doing">W trakcie</option>
-        <option value="done">Zrobione</option>
-      </select>
-    </div>
-    <button type="submit">{{ storyToEdit ? 'Zapisz' : 'Dodaj' }}</button>
-    <button type="button" (click)="resetStoryForm()">Anuluj</button>
   </form>
 </div>

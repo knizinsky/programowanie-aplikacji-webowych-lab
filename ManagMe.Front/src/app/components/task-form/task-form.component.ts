@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,11 +7,27 @@ import { Subscription } from 'rxjs';
 import { UserService, User } from '../../services/user.service';
 import { Story } from '../../models/story.model';
 import { StoryService } from '../../services/story.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
-  imports: [ReactiveFormsModule],
+  styleUrls: ['./task-form.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+  ],
 })
 export class TaskFormComponent implements OnInit, OnDestroy {
   private editingTaskSub = new Subscription();
@@ -24,7 +40,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     private readonly fb: FormBuilder,
     private readonly taskService: TaskService,
     private readonly userService: UserService,
-    private readonly storyService: StoryService,
+    private readonly storyService: StoryService
   ) {
     this.taskForm = this.fb.group({
       name: '',
@@ -38,9 +54,9 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.users = this.userService.getUsers().filter(
-      (user) => user.role === 'developer' || user.role === 'devops'
-    );
+    this.users = this.userService
+      .getUsers()
+      .filter((user) => user.role === 'developer' || user.role === 'devops');
 
     this.stories = this.storyService.getStories();
 

@@ -4,11 +4,14 @@ import { ProjectService } from '../../services/project.service';
 import { Story } from '../../models/story.model';
 import { Subscription } from 'rxjs';
 import { StoryFormComponent } from '../story-form/story-form.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-story-list',
   templateUrl: './story-list.component.html',
-  imports: [StoryFormComponent],
+  styleUrls: ['./story-list.component.scss'],
+  imports: [StoryFormComponent, MatCardModule, MatButtonModule],
 })
 export class StoryListComponent implements OnInit, OnDestroy {
   private storiesChangeSub = new Subscription();

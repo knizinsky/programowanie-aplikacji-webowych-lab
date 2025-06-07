@@ -1,19 +1,37 @@
 <div class="project-list">
-    <h2>Lista Projektów</h2>
-    @if(projects.length){
-        <ul>
-            @for(project of projects; track $index){
-                <li>
-                    <strong>{{ project.name }}</strong><br />
-                    {{ project.description }}
-                    <button (click)="deleteProject(project.id)">Usuń</button>
-                    <button (click)="editProject(project)">Edytuj</button>
-                    <button (click)="selectProject(project)">Wybierz</button>
-                </li>
-            }
-        </ul>
-    }@else {
-        <span>{{'Brak projektów...'}}</span>
+  <h2>Lista Projektów</h2>
+
+  @if (projects.length) {
+  <div class="project-cards">
+    @for (project of projects; track $index) {
+    <mat-card class="project-card">
+      <mat-card-title>{{ project.name }}</mat-card-title>
+      <mat-card-content>
+        <p>{{ project.description }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="deleteProject(project.id)"
+        >
+          Usuń
+        </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="editProject(project)"
+        >
+          Edytuj
+        </button>
+        <button mat-flat-button color="accent" (click)="selectProject(project)">
+          Wybierz
+        </button>
+      </mat-card-actions>
+    </mat-card>
     }
-    </div>
-  
+  </div>
+  } @else {
+  <span class="no-projects">Brak projektów...</span>
+  }
+</div>

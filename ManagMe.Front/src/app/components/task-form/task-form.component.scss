@@ -1,9 +1,7 @@
-.project-form {
-  max-width: 500px;
+.task-form {
+  max-width: 600px;
   margin: auto;
   padding: 1rem;
-  border-radius: 8px;
-  background-color: #fff;
 
   .form-container {
     display: flex;
@@ -18,6 +16,6 @@
   .button-group {
     display: flex;
     justify-content: flex-start;
-    gap: 1rem;
+    margin-top: 1rem;
   }
 }
