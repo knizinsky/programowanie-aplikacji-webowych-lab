@@ -1,11 +1,21 @@
+<form (ngSubmit)="login()">
+  <label
+    >Login: <input type="text" [(ngModel)]="loginValue" name="login"
+  /></label>
+  <label
+    >Hasło: <input type="password" [(ngModel)]="password" name="password"
+  /></label>
+  <button type="submit">Zaloguj</button>
+</form>
+<hr />
 <app-project-form></app-project-form>
-<hr>
+<hr />
 <app-project-list></app-project-list>
-<hr>
+<hr />
 <app-story-list></app-story-list>
-<hr>
+<hr />
 <app-user-list></app-user-list>
-<hr>
+<hr />
 <app-task-form></app-task-form>
-<hr>
+<hr />
 <app-kanban-board></app-kanban-board>
