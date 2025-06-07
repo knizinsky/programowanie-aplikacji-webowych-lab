@@ -1,18 +1,34 @@
 <div class="user-list">
-  <mat-card class="user-card mat-elevation-z2">
-    <mat-card-title>Zalogowany użytkownik</mat-card-title>
+  @if (currentUser) {
+  <mat-card class="user-card mat-elevation-z3">
+    <mat-card-header>
+      <mat-icon mat-card-avatar color="primary">account_circle</mat-icon>
+      <mat-card-title>
+        {{ currentUser.firstName }} {{ currentUser.lastName }}
+      </mat-card-title>
+      <mat-card-subtitle class="user-role">{{ currentUser.role | titlecase }}</mat-card-subtitle>
+    </mat-card-header>
     <mat-card-content>
-      <p>{{ currentUser.firstName }} {{ currentUser.lastName }} - {{ currentUser.role }}</p>
+      <button mat-raised-button color="warn" (click)="logout()">Wyloguj</button>
     </mat-card-content>
   </mat-card>
+  }
 
-  <h2>Lista Użytkowników</h2>
+  <mat-card class="user-list-card mat-elevation-z1">
+    <mat-card-title class="user-list-title">Lista użytkowników</mat-card-title>
+    <mat-divider></mat-divider>
 
-  <mat-list>
-    @for (user of users; track $index) {
+    <mat-list>
+      @for (user of users; track $index) {
       <mat-list-item>
-        {{ user.firstName }} {{ user.lastName }} — {{ user.role }}
+        <mat-icon matListIcon color="accent">person</mat-icon>
+        <h4 matLine>{{ user.firstName }} {{ user.lastName }}</h4>
+        <p matLine class="role" [ngClass]="user.role">
+          Rola: {{ user.role | titlecase }}
+        </p>
       </mat-list-item>
-    }
-  </mat-list>
+      <mat-divider></mat-divider>
+      }
+    </mat-list>
+  </mat-card>
 </div>

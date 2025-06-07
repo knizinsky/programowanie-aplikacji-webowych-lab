@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
 import { User, UserService } from '../../services/user.service';
@@ -22,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class TaskDetailsComponent implements OnInit {
   @Input() task!: Task;
+  @Output() editRequested = new EventEmitter<Task>();
   users: User[] = [];
 
   constructor(

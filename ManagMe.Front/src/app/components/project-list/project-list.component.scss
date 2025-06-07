@@ -11,6 +11,15 @@
 
   .project-card {
     padding: 1rem;
+    text-align: center;
+  }
+
+  .project-description{
+    color: #969696;
+  }
+
+  .mat-mdc-card-actions {
+    justify-content: center;
   }
 
   .no-projects {

@@ -1,0 +1,28 @@
+<mat-card>
+  <h2 class="card-title">{{ isEdit ? "Edytuj Projekt" : "Dodaj Projekt" }}</h2>
+  <form [formGroup]="projectForm" (ngSubmit)="submit()" class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nazwa</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Opis</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-stroked-button type="button" (click)="cancel()">
+        Anuluj
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="projectForm.invalid"
+      >
+        {{ isEdit ? "Zapisz" : "Dodaj" }}
+      </button>
+    </div>
+  </form>
+</mat-card>

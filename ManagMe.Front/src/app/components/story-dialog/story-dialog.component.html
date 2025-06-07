@@ -1,0 +1,40 @@
+<mat-card>
+  <h2>{{ isEdit ? 'Edytuj historyjkę' : 'Dodaj historyjkę' }}</h2>
+
+  <form [formGroup]="storyForm" (ngSubmit)="submit()" class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nazwa</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Opis</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Priorytet</mat-label>
+      <mat-select formControlName="priority">
+        <mat-option value="low">Niski</mat-option>
+        <mat-option value="medium">Średni</mat-option>
+        <mat-option value="high">Wysoki</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="todo">Do zrobienia</mat-option>
+        <mat-option value="doing">W trakcie</mat-option>
+        <mat-option value="done">Zrobione</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit" [disabled]="storyForm.invalid">
+        {{ isEdit ? 'Zapisz' : 'Dodaj' }}
+      </button>
+      <button mat-stroked-button type="button" (click)="cancel()">Anuluj</button>
+    </div>
+  </form>
+</mat-card>

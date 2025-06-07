@@ -1,0 +1,42 @@
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 16px;
+
+  .kanban-column {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    min-height: 400px;
+    background-color: #fafafa;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+    background: #161616;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    mat-card-header {
+      padding: 16px;
+      align-items: center;
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+
+    mat-divider {
+      margin: 0;
+    }
+
+    .kanban-tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+  }
+}

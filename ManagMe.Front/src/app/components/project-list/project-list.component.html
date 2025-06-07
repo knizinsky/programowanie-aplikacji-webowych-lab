@@ -1,21 +1,19 @@
 <div class="project-list">
-  <h2>Lista Projektów</h2>
-
   @if (projects.length) {
   <div class="project-cards">
     @for (project of projects; track $index) {
     <mat-card class="project-card">
       <mat-card-title>{{ project.name }}</mat-card-title>
       <mat-card-content>
-        <p>{{ project.description }}</p>
+        <p class="project-description">{{ project.description }}</p>
       </mat-card-content>
       <mat-card-actions>
         <button
-          mat-raised-button
-          color="warn"
-          (click)="deleteProject(project.id)"
+          mat-stroked-button
+          color="accent"
+          (click)="selectProject(project)"
         >
-          Usuń
+          Wybierz
         </button>
         <button
           mat-stroked-button
@@ -24,8 +22,12 @@
         >
           Edytuj
         </button>
-        <button mat-flat-button color="accent" (click)="selectProject(project)">
-          Wybierz
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="deleteProject(project.id)"
+        >
+          Usuń
         </button>
       </mat-card-actions>
     </mat-card>

@@ -16,6 +16,9 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background: rgb(16, 16, 16);
   color: white;
+  background-image:
+    linear-gradient(to bottom, rgb(0 0 0) 10%, rgb(0 102 98 / 64%)),
+    url('./app/assets/img/background.jpg');
 }
 
 html {
@@ -24,6 +27,15 @@ html {
 
 a {
   text-decoration: none;
+}
+
+h2 {
+  margin: 24px 0 24px;
+  text-align: center;
+}
+
+button {
+  margin: 4px;
 }
 
 img {
@@ -49,4 +61,8 @@ textarea {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+mat-card {
+  padding: 24px;
 }

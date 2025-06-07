@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Project } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,12 @@ import { MatButtonModule } from '@angular/material/button';
 export class ProjectListComponent implements OnInit, OnDestroy {
   private projectsChangeSub = new Subscription();
   projects: Project[] = [];
+
+  @Output() editRequested = new EventEmitter<Project>();
+
+  editProject(project: Project): void {
+    this.editRequested.emit(project);
+  }
 
   constructor(private projectService: ProjectService) {}
 
@@ -39,9 +45,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.projects = this.projectService.getProjects();
   }
 
-  editProject(project: Project): void {
-    this.projectService.startEditingProject(project);
-  }
+  // editProject(project: Project): void {
+  //   this.projectService.startEditingProject(project);
+  // }
 
   selectProject(project: Project): void {
     this.projectService.selectCurrentProject(project);

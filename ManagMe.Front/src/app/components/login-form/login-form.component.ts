@@ -12,17 +12,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login-form',
+  standalone: true,
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
     MatCardModule,
-    ReactiveFormsModule,
     MatIconModule,
+    MatSnackBarModule,
   ],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
@@ -34,7 +37,8 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -45,17 +49,16 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    console.log(
-      ' LoginFormComponent > login > this.loginForm:',
-      this.loginForm.valid
-    );
     if (this.loginForm.valid) {
       const { login, password } = this.loginForm.value;
       this.authService.login(login!, password!).subscribe({
         next: () => this.loggedIn.emit(),
-        error: (err) => {
-          // obsłuż błąd logowania
-          console.error('Błąd logowania', err);
+        error: () => {
+          this.snackBar.open('Nieprawidłowy login lub hasło.', 'Zamknij', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
         },
       });
     }

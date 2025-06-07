@@ -1,18 +1,86 @@
 .user-list {
   max-width: 600px;
-  margin: auto;
-  padding: 1rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
 
   .user-card {
+    flex-direction: row;
+    justify-content: space-around;
     margin-bottom: 2rem;
+    border-radius: 16px;
+
+    .mat-mdc-card-content:last-child {
+      padding-top: 16px;
+    }
+
+    .user-role {
+      color: #969696;
+    }
+
+    mat-icon {
+      font-size: 34px;
+      width: 35px;
+      height: 35px;
+    }
+  }
+
+  .user-list-card {
+    border-radius: 12px;
+
+    .user-list-title {
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+  }
+
+  .welcome-text {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: #666;
   }
 
   mat-list-item {
+    align-items: start;
     padding: 0.5rem 0;
-    border-bottom: 1px solid #e0e0e0;
 
-    &:last-child {
-      border-bottom: none;
+    h4 {
+      font-weight: 500;
+      font-size: 1rem;
+      margin: 24px;
     }
+
+    .role {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 2px;
+
+      &.admin {
+        color: #00dddd;
+        font-weight: 600;
+      }
+
+      &.developer {
+        color: #969696;
+      }
+
+      &.tester {
+        color: #969696;
+      }
+    }
+  }
+
+  mat-divider {
+    margin: 0;
+  }
+}
+
+::ng-deep {
+  .mdc-list-item__primary-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  mat-list.mdc-list {
+    padding: 0 0 10px 0;
   }
 }

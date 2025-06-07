@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { StoryService } from '../../services/story.service';
 import { ProjectService } from '../../services/project.service';
 import { Story } from '../../models/story.model';
@@ -6,18 +12,27 @@ import { Subscription } from 'rxjs';
 import { StoryFormComponent } from '../story-form/story-form.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { StoryDialogComponent } from '../story-dialog/story-dialog.component';
+
+export type StoryWithProjectId = {
+  story: Story;
+  projectId: string | null;
+}
 
 @Component({
   selector: 'app-story-list',
   templateUrl: './story-list.component.html',
   styleUrls: ['./story-list.component.scss'],
-  imports: [StoryFormComponent, MatCardModule, MatButtonModule],
+  imports: [MatCardModule, MatButtonModule],
 })
 export class StoryListComponent implements OnInit, OnDestroy {
   private storiesChangeSub = new Subscription();
   private currentProjectSub = new Subscription();
   stories: Story[] = [];
   currentProjectId: string | null = null;
+
+  @Output() editRequested = new EventEmitter<StoryWithProjectId>();
 
   get todoStories(): Story[] {
     return this.stories.filter((story) => story.status === 'todo');
@@ -33,7 +48,8 @@ export class StoryListComponent implements OnInit, OnDestroy {
 
   constructor(
     private storyService: StoryService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +87,7 @@ export class StoryListComponent implements OnInit, OnDestroy {
   }
 
   editStory(story: Story): void {
-    this.storyService.startEditingStory(story);
+    this.editRequested.emit({ story, projectId: this.currentProjectId });
   }
 
   ngOnDestroy(): void {
