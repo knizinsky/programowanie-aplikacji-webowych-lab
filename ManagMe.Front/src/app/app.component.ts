@@ -26,6 +26,10 @@ import { Task } from './models/task.model';
 import { TaskDialogComponent } from './components/task-dialog/task-dialog.component';
 import { StoryDialogComponent } from './components/story-dialog/story-dialog.component';
 import { Story } from './models/story.model';
+import { ThemeService } from './services/theme.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +42,9 @@ import { Story } from './models/story.model';
     UserListComponent,
     KanbanBoardComponent,
     CommonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -45,7 +52,15 @@ import { Story } from './models/story.model';
 export class AppComponent implements OnInit {
   isLoggedIn = false;
 
-  constructor(private auth: AuthService, private dialog: MatDialog) {}
+  constructor(
+    private readonly auth: AuthService,
+    private readonly dialog: MatDialog,
+    private readonly themeService: ThemeService
+  ) {}
+
+  get isDarkTheme(): boolean {
+    return this.themeService.isDarkTheme;
+  }
 
   ngOnInit(): void {
     this.isLoggedIn = this.auth.isLoggedIn();
@@ -58,6 +73,10 @@ export class AppComponent implements OnInit {
   logout() {
     this.auth.logout();
     this.isLoggedIn = false;
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
   }
 
   openProjectDialog(project: Project | null = null): void {

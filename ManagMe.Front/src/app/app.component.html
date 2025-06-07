@@ -1,6 +1,18 @@
 @if (!isLoggedIn) {
 <app-login-form (loggedIn)="handleLogin()"></app-login-form>
 } @else {
+<mat-toolbar color="primary">
+  <span>ManagMe</span>
+  <span class="spacer"></span>
+  <button
+    mat-icon-button
+    (click)="toggleTheme()"
+    [matTooltip]="'Przełącz tryb ciemny/jasny'"
+  >
+    <mat-icon>{{ isDarkTheme ? "light_mode" : "dark_mode" }}</mat-icon>
+  </button>
+</mat-toolbar>
+
 <mat-tab-group>
   <mat-tab label="Projekty">
     <h2>Lista Projektów</h2>
