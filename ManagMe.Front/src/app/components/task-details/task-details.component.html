@@ -1,5 +1,7 @@
 <mat-card class="task-details mat-elevation-z2">
-  <mat-card-title>{{ task.name }}</mat-card-title>
+  <mat-card-title [attr.data-task-name]="task.name">{{
+    task.name
+  }}</mat-card-title>
   <mat-card-content>
     <p><strong>Opis:</strong> {{ task.description }}</p>
     <p><strong>Priorytet:</strong> {{ task.priority }}</p>

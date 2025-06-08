@@ -5,12 +5,15 @@
       <div class="story-cards">
         @for (story of todoStories; track $index) {
           <mat-card class="story-card" color="accent">
-            <mat-card-title>{{ story.name }}</mat-card-title>
+            <mat-card-title [attr.data-story-name]="story.name">{{
+              story.name
+            }}</mat-card-title>
             <mat-card-content>
               <p>{{ story.description }}</p>
             </mat-card-content>
             <mat-card-actions>
               <button
+                data-id="edit-story-btn"
                 mat-stroked-button
                 color="primary"
                 (click)="editStory(story)"
@@ -18,6 +21,7 @@
                 Edytuj
               </button>
               <button
+                data-id="delete-story-btn"
                 mat-raised-button
                 color="warn"
                 (click)="deleteStory(story.id)"

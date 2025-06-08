@@ -21,7 +21,12 @@
           Poniżej znajduje się lista wszystkich projektów. Wybierz jeden z nich,
           aby zobaczyć jego historyjki oraz zadania.
         </p>
-        <button data-id="add-project-btn" mat-flat-button color="primary" (click)="openProjectDialog()">
+        <button
+          data-id="add-project-btn"
+          mat-flat-button
+          color="primary"
+          (click)="openProjectDialog()"
+        >
           Dodaj projekt
         </button>
       </div>
@@ -29,14 +34,19 @@
         (editRequested)="openProjectDialog($event)"
       ></app-project-list>
     </mat-tab>
-    <mat-tab label="Historyjki">
+    <mat-tab data-id="story-tab" label="Historyjki">
       <div class="project-list-header">
         <h2>Lista Historyjek</h2>
         <p class="project-list-description">
           Poniżej znajduje się lista historyjek dla wybranego projektu. Możesz
           dodawać nowe oraz modyfikować istniejące.
         </p>
-        <button mat-flat-button color="primary" (click)="openStoryDialog()">
+        <button
+          data-id="add-story-btn"
+          mat-flat-button
+          color="primary"
+          (click)="openStoryDialog()"
+        >
           Dodaj historyjkę
         </button>
       </div>
@@ -52,7 +62,12 @@
           Poniżej znajduje się lista zadań dla wybranego projektu. Możesz
           dodawać nowe oraz modyfikować istniejące.
         </p>
-        <button mat-flat-button color="primary" (click)="openTaskDialog()">
+        <button
+          data-id="new-task-btn"
+          mat-flat-button
+          color="primary"
+          (click)="openTaskDialog()"
+        >
           Dodaj zadanie
         </button>
       </div>

@@ -2,12 +2,16 @@
   <h2>{{ isEdit ? "Edytuj Zadanie" : "Dodaj Zadanie" }}</h2>
 
   <form [formGroup]="taskForm" (ngSubmit)="submit()" class="form-container">
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field data-id="task-name" appearance="outline" class="full-width">
       <mat-label>Nazwa</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field
+      data-id="task-description"
+      appearance="outline"
+      class="full-width"
+    >
       <mat-label>Opis</mat-label>
       <input matInput formControlName="description" />
     </mat-form-field>
@@ -52,6 +56,7 @@
 
     <div class="button-group">
       <button
+        data-id="submit-task-btn"
         mat-raised-button
         color="primary"
         type="submit"

@@ -1,11 +1,11 @@
 const puppeteer = require("puppeteer");
 
-describe("ManageMe E2E - podstawowy flow", () => {
+describe("Dodawanie, edytowanie i usuwanie nowego projektu", () => {
   let browser;
   let page;
 
   beforeAll(async () => {
-    browser = await puppeteer.launch({ headless: false, slowMo: 30 });
+    browser = await puppeteer.launch({ headless: false, slowMo: 10 });
     page = await browser.newPage();
     await page.goto("http://localhost:4200");
   });
@@ -14,7 +14,7 @@ describe("ManageMe E2E - podstawowy flow", () => {
     await browser.close();
   });
 
-  it("Dodawanie nowego projektu", async () => {
+  it("Dodawanie, edytowanie i usuwanie nowego projektu", async () => {
     await page.click('[data-id="login-field"]');
     await page.type('[data-id="login-field"]', "admin");
     await page.click('[data-id="password-field"]');

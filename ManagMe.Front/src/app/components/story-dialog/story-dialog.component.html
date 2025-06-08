@@ -2,12 +2,20 @@
   <h2>{{ isEdit ? "Edytuj historyjkę" : "Dodaj historyjkę" }}</h2>
 
   <form [formGroup]="storyForm" (ngSubmit)="submit()" class="form-container">
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field
+      data-id="story-name"
+      appearance="outline"
+      class="full-width"
+    >
       <mat-label>Nazwa</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field
+      data-id="story-description"
+      appearance="outline"
+      class="full-width"
+    >
       <mat-label>Opis</mat-label>
       <input matInput formControlName="description" />
     </mat-form-field>
@@ -32,6 +40,7 @@
 
     <div class="button-group">
       <button
+        data-id="submit-story-btn"
         mat-raised-button
         color="primary"
         type="submit"
