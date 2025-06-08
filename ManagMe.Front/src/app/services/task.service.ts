@@ -1,41 +1,33 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Task } from '../models/task.model';
+import { TaskSupabaseService } from './task-supabase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  private readonly storageKey = 'tasks';
   readonly onTasksChange = new Subject<void>();
   readonly currentEditingTask = new BehaviorSubject<Task | null>(null);
 
-  getTasks(): Task[] {
-    const tasks = localStorage.getItem(this.storageKey);
-    return tasks ? JSON.parse(tasks) : [];
+  taskSupabaseService = inject(TaskSupabaseService);
+
+  async getTasks(): Promise<Task[]> {
+    return this.taskSupabaseService.getTasks();
   }
 
-  saveTask(task: Task): void {
-    const tasks = this.getTasks();
-    tasks.push(task);
-    localStorage.setItem(this.storageKey, JSON.stringify(tasks));
+  async saveTask(task: Task): Promise<void> {
+    await this.taskSupabaseService.saveTask(task);
     this.onTasksChange.next();
   }
 
-  updateTask(updatedTask: Task): void {
-    const tasks = this.getTasks();
-    const index = tasks.findIndex((t) => t.id === updatedTask.id);
-    if (index !== -1) {
-      tasks[index] = updatedTask;
-      localStorage.setItem(this.storageKey, JSON.stringify(tasks));
-    }
+  async updateTask(updatedTask: Task): Promise<void> {
+    await this.taskSupabaseService.updateTask(updatedTask);
     this.onTasksChange.next();
   }
 
-  deleteTask(taskId: string): void {
-    let tasks = this.getTasks();
-    tasks = tasks.filter((t) => t.id !== taskId);
-    localStorage.setItem(this.storageKey, JSON.stringify(tasks));
+  async deleteTask(taskId: string): Promise<void> {
+    await this.taskSupabaseService.deleteTask(taskId);
     this.onTasksChange.next();
   }
 

@@ -1,51 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Project } from '../models/project.model';
+import { ProjectSupabaseService } from './project-supabase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  private readonly storageKey = 'projects';
-  private readonly currentProjectKey = 'currentProject';
   readonly onProjectsChange = new Subject<void>();
   readonly currentEditingProject = new BehaviorSubject<Project | null>(null);
   readonly currentProject = new BehaviorSubject<Project | null>(null);
 
-  constructor() {
-    const savedProject = localStorage.getItem(this.currentProjectKey);
-    if (savedProject) {
-      this.currentProject.next(JSON.parse(savedProject));
-    }
+  projectSupabaseService = inject(ProjectSupabaseService);
+
+  async getProjects(): Promise<Project[]> {
+    return this.projectSupabaseService.getProjects();
   }
 
-  getProjects(): Project[] {
-    const projects = localStorage.getItem(this.storageKey);
-    return projects ? JSON.parse(projects) : [];
-  }
-
-  saveProject(project: Project): void {
-    const projects = this.getProjects();
-    projects.push(project);
-    localStorage.setItem(this.storageKey, JSON.stringify(projects));
+  async saveProject(project: Project): Promise<void> {
+    await this.projectSupabaseService.saveProject(project);
     this.onProjectsChange.next();
   }
 
-  updateProject(updatedProject: Project): void {
-    const projects = this.getProjects();
-    const index = projects.findIndex((p) => p.id === updatedProject.id);
-    if (index !== -1) {
-      projects[index] = updatedProject;
-      localStorage.setItem(this.storageKey, JSON.stringify(projects));
-    }
+  async updateProject(updatedProject: Project): Promise<void> {
+    await this.projectSupabaseService.updateProject(updatedProject);
     this.onProjectsChange.next();
     this.currentEditingProject.next(null);
   }
 
-  deleteProject(projectId: string): void {
-    let projects = this.getProjects();
-    projects = projects.filter((p) => p.id !== projectId);
-    localStorage.setItem(this.storageKey, JSON.stringify(projects));
+  async deleteProject(projectId: string): Promise<void> {
+    await this.projectSupabaseService.deleteProject(projectId);
     this.onProjectsChange.next();
   }
 
@@ -55,6 +39,6 @@ export class ProjectService {
 
   selectCurrentProject(project: Project): void {
     this.currentProject.next(project);
-    localStorage.setItem(this.currentProjectKey, JSON.stringify(project));
+    // Optionally, you can persist the selected project in Supabase or just keep it in memory
   }
 }

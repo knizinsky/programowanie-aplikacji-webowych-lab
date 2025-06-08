@@ -70,11 +70,13 @@ export class StoryListComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getStories(): void {
+  private async getStories(): Promise<void> {
     if (this.currentProjectId) {
-      this.stories = this.storyService
+      this.stories = await this.storyService
         .getStories()
-        .filter((story) => story.projectId === this.currentProjectId);
+        .then((stories) =>
+          stories.filter((story) => story.projectId === this.currentProjectId),
+        );
     } else {
       this.stories = [];
     }

@@ -52,9 +52,12 @@ export class TaskDetailsComponent implements OnInit {
       (user) => user.id === this.task.assignedUserId,
     );
     this.taskUserName = `${taskUser?.firstName} ${taskUser?.lastName}`;
-    this.taskStoryName = this.storyService
+    this.taskStoryName = await this.storyService
       .getStories()
-      .find((story) => story.id === this.task.storyId)?.name;
+      .then((stories) => {
+        const story = stories.find((s) => s.id === this.task.storyId);
+        return story ? story.name : undefined;
+      });
     if (this.task.assignedUserId) {
       this.task.status = 'doing';
     }

@@ -11,7 +11,7 @@
       <p><strong>Data startu:</strong> {{ task.startDate }}</p>
     }
     @if (task.endDate) {
-      <p><strong>Data zakończenia:</strong> {{ task.endDate }}</p>
+      <p><strong>Data zakończenia:</strong> {{ task.endDate | date }}</p>
     }
     @if (task.assignedUserId) {
       <p><strong>Przypisany użytkownik:</strong> {{ taskUserName }}</p>

@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Subscription } from 'rxjs';
 import { Project } from '../../models/project.model';
+import { inject } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -29,10 +30,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.editRequested.emit(project);
   }
 
-  constructor(private projectService: ProjectService) {}
+  projectService = inject(ProjectService);
 
-  ngOnInit(): void {
-    this.getProjects();
+  async ngOnInit(): Promise<void> {
+    await this.getProjects();
     this.subToProjectsChange();
     this.selectedProjectId =
       this.projectService.currentProject.value?.id || null;
@@ -40,19 +41,19 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   private subToProjectsChange(): void {
     this.projectsChangeSub = this.projectService.onProjectsChange.subscribe(
-      () => {
-        this.getProjects();
+      async () => {
+        await this.getProjects();
       },
     );
   }
 
-  private getProjects(): void {
-    this.projects = this.projectService.getProjects();
+  private async getProjects(): Promise<void> {
+    this.projects = await this.projectService.getProjects();
   }
 
-  deleteProject(id: string): void {
-    this.projectService.deleteProject(id);
-    this.projects = this.projectService.getProjects();
+  async deleteProject(id: string): Promise<void> {
+    await this.projectService.deleteProject(id);
+    await this.getProjects();
   }
 
   selectProject(project: Project): void {

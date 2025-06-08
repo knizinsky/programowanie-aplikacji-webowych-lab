@@ -69,7 +69,7 @@ export class TaskDialogComponent implements OnInit {
       return users.filter((u) => ['developer', 'devops'].includes(u.role));
     });
 
-    this.stories = this.storyService.getStories();
+    this.stories = await this.storyService.getStories();
     this.isEdit = !!this.data.task;
   }
 
