@@ -44,8 +44,8 @@ export class KanbanBoardComponent implements OnInit {
     this.updateTasks();
   }
 
-  updateTasks(): void {
-    this.tasks = this.taskService.getTasks();
+ async updateTasks(): Promise<void> {
+    this.tasks = await this.taskService.getTasks();
     this.todo = this.tasks.filter((task) => task.status === 'todo');
     this.doing = this.tasks.filter((task) => task.status === 'doing');
     this.done = this.tasks.filter((task) => task.status === 'done');

@@ -6,7 +6,7 @@ export interface Story {
   projectId: string | undefined;
   createdAt: Date;
   status: StoryStatus;
-  ownerId: string;
+  ownerId: string | undefined;
 }
 
 type StoryStatus = 'todo' | 'doing' | 'done';

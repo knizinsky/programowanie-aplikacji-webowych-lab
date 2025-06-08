@@ -42,7 +42,7 @@ import { UserService } from '../../services/user.service';
 export class StoryDialogComponent implements OnInit {
   storyForm!: FormGroup;
   isEdit = false;
-  user!: User;
+  user!: User | null;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -78,7 +78,7 @@ export class StoryDialogComponent implements OnInit {
       status: this.storyForm.value.status,
       projectId,
       createdAt: this.data.story?.createdAt || new Date(),
-      ownerId: this.user.id,
+      ownerId: this.user?.id,
     };
 
     this.isEdit

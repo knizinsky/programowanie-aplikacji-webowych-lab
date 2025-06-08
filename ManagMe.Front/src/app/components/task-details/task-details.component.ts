@@ -46,8 +46,8 @@ export class TaskDetailsComponent implements OnInit {
     private readonly cd: ChangeDetectorRef,
   ) {}
 
-  ngOnInit(): void {
-    this.users = this.userService.getUsers();
+  async ngOnInit(): Promise<void> {
+    this.users = await this.userService.getUsers();
     const taskUser = this.users.find(
       (user) => user.id === this.task.assignedUserId,
     );

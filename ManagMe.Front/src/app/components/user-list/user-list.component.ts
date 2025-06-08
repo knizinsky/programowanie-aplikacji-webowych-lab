@@ -25,15 +25,16 @@ import { User } from '../../models/user.model';
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
-  currentUser!: User;
+  currentUser!: User | null;
 
   @Output() onLogout = new EventEmitter<void>();
 
-  constructor(private userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   async ngOnInit(): Promise<void> {
-    this.users = this.userService.getUsers();
+    this.users = await this.userService.getUsers();
     this.currentUser = await firstValueFrom(this.userService.getUser());
+    console.log(' UserListComponent > ngOnInit > this.currentUser:', this.currentUser);
   }
 
   logout(): void {
