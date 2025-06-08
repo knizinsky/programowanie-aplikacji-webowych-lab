@@ -4,3 +4,29 @@ body {
 .story-list-header {
   text-align: center;
 }
+.app-toolbar {
+  justify-content: center;
+
+  span {
+    margin: 0 2px;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+}
+.project-list-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 550px;
+  margin: 0 auto;
+  .project-list-description {
+    color: #969696;
+    text-align: center;
+    margin: -10px 0 18px 0;
+  }
+  .mdc-button {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+}

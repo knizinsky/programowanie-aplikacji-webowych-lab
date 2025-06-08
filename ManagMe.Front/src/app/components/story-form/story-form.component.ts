@@ -1,16 +1,16 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { StoryService } from '../../services/story.service';
-import { Story } from '../../models/story.model';
-import { v4 as uuidv4 } from 'uuid';
-import { Subscription } from 'rxjs';
-import { UserService } from '../../services/user.service';
-import { User } from '../../services/user.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
+import { Subscription } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
+import { Story } from '../../models/story.model';
+import { ProjectService } from '../../services/project.service';
+import { StoryService } from '../../services/story.service';
+import { User, UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-story-form',
@@ -26,16 +26,16 @@ import { MatOptionModule } from '@angular/material/core';
   ],
 })
 export class StoryFormComponent implements OnInit, OnDestroy {
-  @Input() projectId!: string | null;
   private editingStorySub = new Subscription();
   storyForm: FormGroup;
   storyToEdit!: Story | null;
   user!: User;
 
   constructor(
-    private fb: FormBuilder,
-    private storyService: StoryService,
-    private userService: UserService
+    private readonly fb: FormBuilder,
+    private readonly storyService: StoryService,
+    private readonly userService: UserService,
+    private readonly projectService: ProjectService,
   ) {
     this.storyForm = this.fb.group({
       name: '',
@@ -56,7 +56,7 @@ export class StoryFormComponent implements OnInit, OnDestroy {
         if (this.storyToEdit) {
           this.storyForm.patchValue(this.storyToEdit);
         }
-      }
+      },
     );
   }
 
@@ -66,7 +66,7 @@ export class StoryFormComponent implements OnInit, OnDestroy {
       name: this.storyForm.value.name,
       description: this.storyForm.value.description,
       priority: this.storyForm.value.priority,
-      projectId: this.projectId,
+      projectId: this.projectService.currentProject.value?.id,
       createdAt: this.storyToEdit ? this.storyToEdit.createdAt : new Date(),
       status: this.storyForm.value.status,
       ownerId: this.user.id,

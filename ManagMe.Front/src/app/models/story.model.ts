@@ -3,7 +3,7 @@ export interface Story {
   name: string;
   description: string;
   priority: 'low' | 'medium' | 'high';
-  projectId: string | null;
+  projectId: string | undefined;
   createdAt: Date;
   status: 'todo' | 'doing' | 'done';
   ownerId: string;

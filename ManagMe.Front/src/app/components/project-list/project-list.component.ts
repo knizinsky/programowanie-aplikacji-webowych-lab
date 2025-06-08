@@ -1,19 +1,27 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { NgClass } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { Subscription } from 'rxjs';
 import { Project } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
-import { Subscription } from 'rxjs';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss'],
-  imports: [MatCardModule, MatButtonModule],
+  imports: [MatCardModule, MatButtonModule, NgClass],
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
   private projectsChangeSub = new Subscription();
   projects: Project[] = [];
+  selectedProjectId: string | null = null;
 
   @Output() editRequested = new EventEmitter<Project>();
 
@@ -26,13 +34,16 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getProjects();
     this.subToProjectsChange();
+    this.selectedProjectId =
+      this.projectService.currentProject.value?.id || null;
+    console.log('test');
   }
 
   private subToProjectsChange(): void {
     this.projectsChangeSub = this.projectService.onProjectsChange.subscribe(
       () => {
         this.getProjects();
-      }
+      },
     );
   }
 
@@ -45,12 +56,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.projects = this.projectService.getProjects();
   }
 
-  // editProject(project: Project): void {
-  //   this.projectService.startEditingProject(project);
-  // }
-
   selectProject(project: Project): void {
     this.projectService.selectCurrentProject(project);
+    this.selectedProjectId = project.id;
   }
 
   ngOnDestroy(): void {

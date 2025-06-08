@@ -1,7 +1,7 @@
 @if (!isLoggedIn) {
 <app-login-form (loggedIn)="handleLogin()"></app-login-form>
 } @else {
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="app-toolbar">
   <span>ManagMe</span>
   <span class="spacer"></span>
   <button
@@ -15,8 +15,12 @@
 
 <mat-tab-group>
   <mat-tab label="Projekty">
-    <h2>Lista Projektów</h2>
-    <div style="display: flex; justify-content: center; margin: 16px">
+    <div class="project-list-header">
+      <h2>Lista Projektów</h2>
+      <p class="project-list-description">
+        Poniżej znajduje się lista wszystkich projektów. Wybierz jeden z nich,
+        aby zobaczyć jego historyjki oraz zadania.
+      </p>
       <button mat-flat-button color="primary" (click)="openProjectDialog()">
         Dodaj projekt
       </button>
@@ -26,8 +30,12 @@
     ></app-project-list>
   </mat-tab>
   <mat-tab label="Historyjki">
-    <div class="story-list-header">
+    <div class="project-list-header">
       <h2>Lista Historyjek</h2>
+      <p class="project-list-description">
+        Poniżej znajduje się lista historyjek dla wybranego projektu. Możesz
+        dodawać nowe oraz modyfikować istniejące.
+      </p>
       <button mat-flat-button color="primary" (click)="openStoryDialog()">
         Dodaj historyjkę
       </button>
@@ -36,8 +44,12 @@
     <app-story-list (editRequested)="openStoryDialog($event)"></app-story-list>
   </mat-tab>
   <mat-tab label="Zadania">
-    <h2>Lista zadań</h2>
-    <div style="display: flex; justify-content: center; margin: 0 0 16px">
+    <div class="project-list-header">
+      <h2>Lista zadań</h2>
+      <p class="project-list-description">
+        Poniżej znajduje się lista zadań dla wybranego projektu. Możesz dodawać
+        nowe oraz modyfikować istniejące.
+      </p>
       <button mat-flat-button color="primary" (click)="openTaskDialog()">
         Dodaj zadanie
       </button>

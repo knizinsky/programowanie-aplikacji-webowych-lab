@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { ProjectService } from '../../services/project.service';
-import { Project } from '../../models/project.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { v4 as uuidv4 } from 'uuid';
-import { Subscription } from 'rxjs';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { Subscription } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
+import { Project } from '../../models/project.model';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-project-form',
@@ -27,7 +27,10 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
   projectToEdit!: Project | null;
   private cancelEdit = false;
 
-  constructor(private fb: FormBuilder, private projectService: ProjectService) {
+  constructor(
+    private fb: FormBuilder,
+    private projectService: ProjectService,
+  ) {
     this.projectForm = this.fb.group({
       name: '',
       description: '',

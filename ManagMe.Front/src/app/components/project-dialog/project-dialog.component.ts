@@ -5,14 +5,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Project } from '../../models/project.model';
-import { ProjectService } from '../../services/project.service';
-import { v4 as uuidv4 } from 'uuid';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatCardModule } from '@angular/material/card';
+import { v4 as uuidv4 } from 'uuid';
+import { Project } from '../../models/project.model';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-project-dialog',
@@ -36,7 +40,7 @@ export class ProjectDialogComponent implements OnInit {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ProjectDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Project | null,
-    private projectService: ProjectService
+    private projectService: ProjectService,
   ) {}
 
   ngOnInit(): void {

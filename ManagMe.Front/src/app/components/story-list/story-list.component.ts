@@ -5,20 +5,18 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { StoryService } from '../../services/story.service';
-import { ProjectService } from '../../services/project.service';
-import { Story } from '../../models/story.model';
-import { Subscription } from 'rxjs';
-import { StoryFormComponent } from '../story-form/story-form.component';
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { StoryDialogComponent } from '../story-dialog/story-dialog.component';
+import { Subscription } from 'rxjs';
+import { Story } from '../../models/story.model';
+import { ProjectService } from '../../services/project.service';
+import { StoryService } from '../../services/story.service';
 
 export type StoryWithProjectId = {
   story: Story;
   projectId: string | null;
-}
+};
 
 @Component({
   selector: 'app-story-list',
@@ -49,7 +47,7 @@ export class StoryListComponent implements OnInit, OnDestroy {
   constructor(
     private storyService: StoryService,
     private projectService: ProjectService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -68,15 +66,24 @@ export class StoryListComponent implements OnInit, OnDestroy {
       (project) => {
         this.currentProjectId = project ? project.id : null;
         this.getStories();
-      }
+      },
     );
   }
 
   private getStories(): void {
+    console.log(
+      ' StoryListComponent > getStories > this.currentProjectId:',
+      this.currentProjectId,
+    );
+    console.log((this.stories = this.storyService.getStories()));
     if (this.currentProjectId) {
       this.stories = this.storyService
         .getStories()
         .filter((story) => story.projectId === this.currentProjectId);
+      console.log(
+        ' StoryListComponent > getStories > this.stories:',
+        this.stories,
+      );
     } else {
       this.stories = [];
     }

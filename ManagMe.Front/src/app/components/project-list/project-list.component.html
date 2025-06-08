@@ -2,7 +2,12 @@
   @if (projects.length) {
   <div class="project-cards">
     @for (project of projects; track $index) {
-    <mat-card class="project-card">
+    <mat-card
+      [ngClass]="{
+        'selected-project': selectedProjectId === project?.id,
+        'project-card': true
+      }"
+    >
       <mat-card-title>{{ project.name }}</mat-card-title>
       <mat-card-content>
         <p class="project-description">{{ project.description }}</p>

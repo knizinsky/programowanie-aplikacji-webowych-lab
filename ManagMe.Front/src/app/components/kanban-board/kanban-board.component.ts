@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
-import { TaskDetailsComponent } from '../task-details/task-details.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { Task } from '../../models/task.model';
+import { TaskService } from '../../services/task.service';
+import { TaskDetailsComponent } from '../task-details/task-details.component';
 
 @Component({
   selector: 'app-kanban-board',

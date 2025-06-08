@@ -1,0 +1,12 @@
+{
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact",
+    "html"
+  ],
+  "eslint.alwaysShowStatus": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true
+}

@@ -1,12 +1,12 @@
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpErrorResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError, switchMap, catchError } from 'rxjs';
+import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     const accessToken = this.auth.getAccessToken();
     let authReq = req;
@@ -44,11 +44,11 @@ export class AuthInterceptor implements HttpInterceptor {
             catchError((err) => {
               this.auth.logout();
               return throwError(() => err);
-            })
+            }),
           );
         }
         return throwError(() => error);
-      })
+      }),
     );
   }
 }

@@ -2,25 +2,25 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  Validators,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogModule,
-} from '@angular/material/dialog';
-import { Story } from '../../models/story.model';
-import { StoryService } from '../../services/story.service';
-import { v4 as uuidv4 } from 'uuid';
-import { UserService } from '../../services/user.service';
-import { User } from '../../services/user.service';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatOptionModule } from '@angular/material/core';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { v4 as uuidv4 } from 'uuid';
+import { Story } from '../../models/story.model';
+import { ProjectService } from '../../services/project.service';
+import { StoryService } from '../../services/story.service';
+import { User, UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-story-dialog',
@@ -44,12 +44,13 @@ export class StoryDialogComponent implements OnInit {
   user!: User;
 
   constructor(
-    private fb: FormBuilder,
-    private storyService: StoryService,
-    private userService: UserService,
-    private dialogRef: MatDialogRef<StoryDialogComponent>,
+    private readonly fb: FormBuilder,
+    private readonly storyService: StoryService,
+    private readonly userService: UserService,
+    private readonly dialogRef: MatDialogRef<StoryDialogComponent>,
+    private readonly projectService: ProjectService,
     @Inject(MAT_DIALOG_DATA)
-    public data: { story: Story | null; projectId: string }
+    public data: { story: Story | null; projectId: string },
   ) {}
 
   ngOnInit(): void {
@@ -66,13 +67,15 @@ export class StoryDialogComponent implements OnInit {
   }
 
   submit(): void {
+    const projectId = this.projectService.currentProject.value?.id;
+
     const story: Story = {
       id: this.data.story?.id || uuidv4(),
       name: this.storyForm.value.name,
       description: this.storyForm.value.description,
       priority: this.storyForm.value.priority,
       status: this.storyForm.value.status,
-      projectId: this.data.projectId,
+      projectId,
       createdAt: this.data.story?.createdAt || new Date(),
       ownerId: this.user.id,
     };

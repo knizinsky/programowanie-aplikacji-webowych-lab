@@ -1,35 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ProjectFormComponent } from './components/project-form/project-form.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { KanbanBoardComponent } from './components/kanban-board/kanban-board.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { ProjectDialogComponent } from './components/project-dialog/project-dialog.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
+import { StoryDialogComponent } from './components/story-dialog/story-dialog.component';
 import {
   StoryListComponent,
   StoryWithProjectId,
 } from './components/story-list/story-list.component';
-import { StoryFormComponent } from './components/story-form/story-form.component';
+import { TaskDialogComponent } from './components/task-dialog/task-dialog.component';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { TaskFormComponent } from './components/task-form/task-form.component';
-import { KanbanBoardComponent } from './components/kanban-board/kanban-board.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './services/auth.service';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTabsModule } from '@angular/material/tabs';
-import { ProjectDialogComponent } from './components/project-dialog/project-dialog.component';
 import { Project } from './models/project.model';
 import { Task } from './models/task.model';
-import { TaskDialogComponent } from './components/task-dialog/task-dialog.component';
-import { StoryDialogComponent } from './components/story-dialog/story-dialog.component';
-import { Story } from './models/story.model';
+import { AuthService } from './services/auth.service';
 import { ThemeService } from './services/theme.service';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-root',
@@ -55,7 +46,7 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly auth: AuthService,
     private readonly dialog: MatDialog,
-    private readonly themeService: ThemeService
+    private readonly themeService: ThemeService,
   ) {}
 
   get isDarkTheme(): boolean {

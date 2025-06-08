@@ -1,18 +1,27 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
-import { MatOptionModule } from "@angular/material/core";
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatSelectModule } from "@angular/material/select";
-import { User, UserService } from "../../services/user.service";
-import { Story } from "../../models/story.model";
-import { StoryService } from "../../services/story.service";
-import { TaskService } from "../../services/task.service";
-import { Task } from "../../models/task.model";
+import { Component, Inject, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatOptionModule } from '@angular/material/core';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { v4 as uuidv4 } from 'uuid';
+import { Story } from '../../models/story.model';
+import { Task } from '../../models/task.model';
+import { StoryService } from '../../services/story.service';
+import { TaskService } from '../../services/task.service';
+import { User, UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-task-dialog',
@@ -42,11 +51,13 @@ export class TaskDialogComponent implements OnInit {
     private storyService: StoryService,
     private taskService: TaskService,
     private dialogRef: MatDialogRef<TaskDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { task: Task | null }
+    @Inject(MAT_DIALOG_DATA) public data: { task: Task | null },
   ) {}
 
   ngOnInit(): void {
-    this.users = this.userService.getUsers().filter((u) => ['developer', 'devops'].includes(u.role));
+    this.users = this.userService
+      .getUsers()
+      .filter((u) => ['developer', 'devops'].includes(u.role));
     this.stories = this.storyService.getStories();
     this.isEdit = !!this.data.task;
 

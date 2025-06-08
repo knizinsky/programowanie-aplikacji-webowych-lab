@@ -12,9 +12,15 @@
   .project-card {
     padding: 1rem;
     text-align: center;
+    border: 1px solid transparent;
+    transition: border 0.2s ease;
   }
 
-  .project-description{
+  .selected-project {
+    border: 1px solid #00dddd;
+  }
+
+  .project-description {
     color: #969696;
   }
 

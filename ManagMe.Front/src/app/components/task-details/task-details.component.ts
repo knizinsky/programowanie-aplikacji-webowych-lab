@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
-import { User, UserService } from '../../services/user.service';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Task } from '../../models/task.model';
+import { TaskService } from '../../services/task.service';
+import { User, UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-task-details',
@@ -27,7 +27,7 @@ export class TaskDetailsComponent implements OnInit {
 
   constructor(
     private readonly taskService: TaskService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {}
 
   ngOnInit(): void {
