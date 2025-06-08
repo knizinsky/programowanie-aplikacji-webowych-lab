@@ -34,7 +34,6 @@ export class UserListComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.users = await this.userService.getUsers();
     this.currentUser = await firstValueFrom(this.userService.getUser());
-    console.log(' UserListComponent > ngOnInit > this.currentUser:', this.currentUser);
   }
 
   logout(): void {

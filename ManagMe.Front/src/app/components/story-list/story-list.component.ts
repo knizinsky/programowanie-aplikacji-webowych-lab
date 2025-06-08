@@ -71,19 +71,10 @@ export class StoryListComponent implements OnInit, OnDestroy {
   }
 
   private getStories(): void {
-    console.log(
-      ' StoryListComponent > getStories > this.currentProjectId:',
-      this.currentProjectId,
-    );
-    console.log((this.stories = this.storyService.getStories()));
     if (this.currentProjectId) {
       this.stories = this.storyService
         .getStories()
         .filter((story) => story.projectId === this.currentProjectId);
-      console.log(
-        ' StoryListComponent > getStories > this.stories:',
-        this.stories,
-      );
     } else {
       this.stories = [];
     }

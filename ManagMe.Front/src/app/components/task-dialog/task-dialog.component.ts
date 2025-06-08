@@ -55,15 +55,8 @@ export class TaskDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { task: Task | null },
   ) {}
 
-  ngOnInit(): void {
-    this.users = this.userService
-      .getUsers()
-      .filter((u) => ['developer', 'devops'].includes(u.role));
-    this.stories = this.storyService.getStories();
-    this.isEdit = !!this.data.task;
-
+  async ngOnInit(): Promise<void> {
     const t = this.data.task;
-
     this.taskForm = this.fb.group({
       name: [t?.name || '', Validators.required],
       description: [t?.description || '', Validators.required],
@@ -72,6 +65,12 @@ export class TaskDialogComponent implements OnInit {
       assignedUserId: [t?.assignedUserId || null],
       storyId: [t?.storyId || null],
     });
+    this.users = await this.userService.getUsers().then((users) => {
+      return users.filter((u) => ['developer', 'devops'].includes(u.role));
+    });
+
+    this.stories = this.storyService.getStories();
+    this.isEdit = !!this.data.task;
   }
 
   submit(): void {

@@ -36,7 +36,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.subToProjectsChange();
     this.selectedProjectId =
       this.projectService.currentProject.value?.id || null;
-    console.log('test');
   }
 
   private subToProjectsChange(): void {

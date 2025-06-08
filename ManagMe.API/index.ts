@@ -113,7 +113,6 @@ function verifyToken(req: any, res: any, next: any) {
 
   jwt.verify(token, tokenSecret, (err: any, user: any) => {
     if (err) {
-      console.log(err);
       return res.status(401).send(err.message);
     }
     req.user = user;

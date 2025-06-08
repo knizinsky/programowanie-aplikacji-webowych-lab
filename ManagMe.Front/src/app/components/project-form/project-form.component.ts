@@ -42,7 +42,6 @@ export class ProjectFormComponent implements OnInit, OnDestroy {
       this.projectService.currentEditingProject.subscribe((proj) => {
         this.projectToEdit = proj;
 
-        console.log(this.cancelEdit);
         if (this.projectToEdit && !this.cancelEdit) {
           this.projectForm.patchValue(this.projectToEdit);
         }
