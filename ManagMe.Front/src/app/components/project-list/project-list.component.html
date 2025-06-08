@@ -10,7 +10,12 @@
         >
           <mat-card-title>{{ project.name }}</mat-card-title>
           <mat-card-content>
-            <p class="project-description">{{ project.description }}</p>
+            <p
+              [attr.data-project-description]="project.description"
+              class="project-description"
+            >
+              {{ project.description }}
+            </p>
           </mat-card-content>
           <mat-card-actions>
             <button
@@ -21,6 +26,7 @@
               Wybierz
             </button>
             <button
+              data-id="edit-project-btn"
               mat-stroked-button
               color="primary"
               (click)="editProject(project)"
@@ -28,6 +34,7 @@
               Edytuj
             </button>
             <button
+              data-id="delete-project-btn"
               mat-stroked-button
               color="primary"
               (click)="deleteProject(project.id)"

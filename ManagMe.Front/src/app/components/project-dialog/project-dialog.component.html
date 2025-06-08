@@ -1,13 +1,13 @@
 <mat-card>
   <h2 class="card-title">{{ isEdit ? "Edytuj Projekt" : "Dodaj Projekt" }}</h2>
   <form [formGroup]="projectForm" (ngSubmit)="submit()" class="form-container">
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field data-id="new-project-name" appearance="outline" class="full-width">
       <mat-label>Nazwa</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Opis</mat-label>
+      <mat-label data-id="new-project-description">Opis</mat-label>
       <input matInput formControlName="description" />
     </mat-form-field>
 
@@ -16,6 +16,7 @@
         Anuluj
       </button>
       <button
+        data-id="submit-project-btn"
         mat-raised-button
         color="primary"
         type="submit"
