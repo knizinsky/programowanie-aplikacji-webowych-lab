@@ -30,3 +30,8 @@ body {
     margin-bottom: 20px;
   }
 }
+::ng-deep {
+  .mdc-tab__text-label {
+    color: var(--text-color) !important;
+  }
+}

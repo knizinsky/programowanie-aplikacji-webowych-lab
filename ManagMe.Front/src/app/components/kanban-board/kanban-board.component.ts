@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,10 +31,16 @@ export class KanbanBoardComponent implements OnInit {
 
   @Output() editRequested = new EventEmitter<Task>();
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private readonly taskService: TaskService,
+    private readonly cd: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
-    this.taskService.onTasksChange.subscribe(() => this.updateTasks());
+    this.taskService.onTasksChange.subscribe(() => {
+      this.updateTasks();
+      this.cd.markForCheck();
+    });
     this.updateTasks();
   }
 

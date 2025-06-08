@@ -55,7 +55,6 @@ export class TaskDetailsComponent implements OnInit {
     this.taskStoryName = this.storyService
       .getStories()
       .find((story) => story.id === this.task.storyId)?.name;
-    // Jeśli zadanie ma przypisanego użytkownika, ustaw status na 'doing'
     if (this.task.assignedUserId) {
       this.task.status = 'doing';
     }
