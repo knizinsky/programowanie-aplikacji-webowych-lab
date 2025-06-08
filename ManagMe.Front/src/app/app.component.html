@@ -1,66 +1,68 @@
 @if (!isLoggedIn) {
-<app-login-form (loggedIn)="handleLogin()"></app-login-form>
+  <app-login-form (loggedIn)="handleLogin()"></app-login-form>
 } @else {
-<mat-toolbar color="primary" class="app-toolbar">
-  <span>ManagMe</span>
-  <span class="spacer"></span>
-  <button
-    mat-icon-button
-    (click)="toggleTheme()"
-    [matTooltip]="'Przełącz tryb ciemny/jasny'"
-  >
-    <mat-icon>{{ isDarkTheme ? "light_mode" : "dark_mode" }}</mat-icon>
-  </button>
-</mat-toolbar>
+  <mat-toolbar color="primary" class="app-toolbar">
+    <span>ManagMe</span>
+    <span class="spacer"></span>
+    <button
+      mat-icon-button
+      (click)="toggleTheme()"
+      [matTooltip]="'Przełącz tryb ciemny/jasny'"
+    >
+      <mat-icon>{{ isDarkTheme ? "light_mode" : "dark_mode" }}</mat-icon>
+    </button>
+  </mat-toolbar>
 
-<mat-tab-group>
-  <mat-tab label="Projekty">
-    <div class="project-list-header">
-      <h2>Lista Projektów</h2>
-      <p class="project-list-description">
-        Poniżej znajduje się lista wszystkich projektów. Wybierz jeden z nich,
-        aby zobaczyć jego historyjki oraz zadania.
-      </p>
-      <button mat-flat-button color="primary" (click)="openProjectDialog()">
-        Dodaj projekt
-      </button>
-    </div>
-    <app-project-list
-      (editRequested)="openProjectDialog($event)"
-    ></app-project-list>
-  </mat-tab>
-  <mat-tab label="Historyjki">
-    <div class="project-list-header">
-      <h2>Lista Historyjek</h2>
-      <p class="project-list-description">
-        Poniżej znajduje się lista historyjek dla wybranego projektu. Możesz
-        dodawać nowe oraz modyfikować istniejące.
-      </p>
-      <button mat-flat-button color="primary" (click)="openStoryDialog()">
-        Dodaj historyjkę
-      </button>
-    </div>
+  <mat-tab-group>
+    <mat-tab label="Projekty">
+      <div class="project-list-header">
+        <h2>Lista Projektów</h2>
+        <p class="project-list-description">
+          Poniżej znajduje się lista wszystkich projektów. Wybierz jeden z nich,
+          aby zobaczyć jego historyjki oraz zadania.
+        </p>
+        <button mat-flat-button color="primary" (click)="openProjectDialog()">
+          Dodaj projekt
+        </button>
+      </div>
+      <app-project-list
+        (editRequested)="openProjectDialog($event)"
+      ></app-project-list>
+    </mat-tab>
+    <mat-tab label="Historyjki">
+      <div class="project-list-header">
+        <h2>Lista Historyjek</h2>
+        <p class="project-list-description">
+          Poniżej znajduje się lista historyjek dla wybranego projektu. Możesz
+          dodawać nowe oraz modyfikować istniejące.
+        </p>
+        <button mat-flat-button color="primary" (click)="openStoryDialog()">
+          Dodaj historyjkę
+        </button>
+      </div>
 
-    <app-story-list (editRequested)="openStoryDialog($event)"></app-story-list>
-  </mat-tab>
-  <mat-tab label="Zadania">
-    <div class="project-list-header">
-      <h2>Lista zadań</h2>
-      <p class="project-list-description">
-        Poniżej znajduje się lista zadań dla wybranego projektu. Możesz dodawać
-        nowe oraz modyfikować istniejące.
-      </p>
-      <button mat-flat-button color="primary" (click)="openTaskDialog()">
-        Dodaj zadanie
-      </button>
-    </div>
+      <app-story-list
+        (editRequested)="openStoryDialog($event)"
+      ></app-story-list>
+    </mat-tab>
+    <mat-tab label="Zadania">
+      <div class="project-list-header">
+        <h2>Lista zadań</h2>
+        <p class="project-list-description">
+          Poniżej znajduje się lista zadań dla wybranego projektu. Możesz
+          dodawać nowe oraz modyfikować istniejące.
+        </p>
+        <button mat-flat-button color="primary" (click)="openTaskDialog()">
+          Dodaj zadanie
+        </button>
+      </div>
 
-    <app-kanban-board
-      (editRequested)="openTaskDialog($event)"
-    ></app-kanban-board>
-  </mat-tab>
-  <mat-tab label="Użytkownicy">
-    <app-user-list (onLogout)="logout()"></app-user-list>
-  </mat-tab>
-</mat-tab-group>
+      <app-kanban-board
+        (editRequested)="openTaskDialog($event)"
+      ></app-kanban-board>
+    </mat-tab>
+    <mat-tab label="Użytkownicy">
+      <app-user-list (onLogout)="logout()"></app-user-list>
+    </mat-tab>
+  </mat-tab-group>
 }

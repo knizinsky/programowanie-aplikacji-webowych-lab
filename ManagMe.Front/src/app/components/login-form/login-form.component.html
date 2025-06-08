@@ -12,17 +12,21 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Login</mat-label>
         <input matInput type="text" formControlName="login" />
-        @if(loginForm.get('login')?.invalid && loginForm.get('login')?.touched){
-        <mat-error> Wymagany login </mat-error>
+        @if (
+          loginForm.get("login")?.invalid && loginForm.get("login")?.touched
+        ) {
+          <mat-error> Wymagany login </mat-error>
         }
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Hasło</mat-label>
         <input matInput type="password" formControlName="password" />
-        @if(loginForm.get('password')?.invalid &&
-        loginForm.get('password')?.touched){
-        <mat-error> Wymagane hasło </mat-error>
+        @if (
+          loginForm.get("password")?.invalid &&
+          loginForm.get("password")?.touched
+        ) {
+          <mat-error> Wymagane hasło </mat-error>
         }
       </mat-form-field>
 

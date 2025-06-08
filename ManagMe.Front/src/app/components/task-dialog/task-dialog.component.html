@@ -30,10 +30,10 @@
       <mat-label>Przypisz użytkownika</mat-label>
       <mat-select formControlName="assignedUserId">
         <mat-option [value]="null">Brak</mat-option>
-        @for(user of users; track user.id) {
-        <mat-option [value]="user.id">
-          {{ user.firstName }} {{ user.lastName }}
-        </mat-option>
+        @for (user of users; track user.id) {
+          <mat-option [value]="user.id">
+            {{ user.firstName }} {{ user.lastName }}
+          </mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -43,9 +43,9 @@
       <mat-select formControlName="storyId">
         <mat-option [value]="null">Brak</mat-option>
         @for (s of stories; track $index) {
-        <mat-option [value]="s.id">
-          {{ s.name }}
-        </mat-option>
+          <mat-option [value]="s.id">
+            {{ s.name }}
+          </mat-option>
         }
       </mat-select>
     </mat-form-field>

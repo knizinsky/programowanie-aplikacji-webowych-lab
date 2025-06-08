@@ -8,10 +8,10 @@
 
     <div class="kanban-tasks">
       @for (task of todo; track $index) {
-      <app-task-details
-        [task]="task"
-        (editRequested)="editRequested.emit(task)"
-      ></app-task-details>
+        <app-task-details
+          [task]="task"
+          (editRequested)="editRequested.emit(task)"
+        ></app-task-details>
       }
     </div>
   </mat-card>
@@ -25,10 +25,10 @@
 
     <div class="kanban-tasks">
       @for (task of doing; track $index) {
-      <app-task-details
-        [task]="task"
-        (editRequested)="editRequested.emit(task)"
-      ></app-task-details>
+        <app-task-details
+          [task]="task"
+          (editRequested)="editRequested.emit(task)"
+        ></app-task-details>
       }
     </div>
   </mat-card>
@@ -42,10 +42,10 @@
 
     <div class="kanban-tasks">
       @for (task of done; track $index) {
-      <app-task-details
-        [task]="task"
-        (editRequested)="editRequested.emit(task)"
-      ></app-task-details>
+        <app-task-details
+          [task]="task"
+          (editRequested)="editRequested.emit(task)"
+        ></app-task-details>
       }
     </div>
   </mat-card>

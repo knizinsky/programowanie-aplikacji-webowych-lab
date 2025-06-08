@@ -1,44 +1,44 @@
 <div class="project-list">
   @if (projects.length) {
-  <div class="project-cards">
-    @for (project of projects; track $index) {
-    <mat-card
-      [ngClass]="{
-        'selected-project': selectedProjectId === project?.id,
-        'project-card': true
-      }"
-    >
-      <mat-card-title>{{ project.name }}</mat-card-title>
-      <mat-card-content>
-        <p class="project-description">{{ project.description }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button
-          mat-stroked-button
-          color="accent"
-          (click)="selectProject(project)"
+    <div class="project-cards">
+      @for (project of projects; track $index) {
+        <mat-card
+          [ngClass]="{
+            'selected-project': selectedProjectId === project?.id,
+            'project-card': true,
+          }"
         >
-          Wybierz
-        </button>
-        <button
-          mat-stroked-button
-          color="primary"
-          (click)="editProject(project)"
-        >
-          Edytuj
-        </button>
-        <button
-          mat-stroked-button
-          color="primary"
-          (click)="deleteProject(project.id)"
-        >
-          Usuń
-        </button>
-      </mat-card-actions>
-    </mat-card>
-    }
-  </div>
+          <mat-card-title>{{ project.name }}</mat-card-title>
+          <mat-card-content>
+            <p class="project-description">{{ project.description }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button
+              mat-stroked-button
+              color="accent"
+              (click)="selectProject(project)"
+            >
+              Wybierz
+            </button>
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="editProject(project)"
+            >
+              Edytuj
+            </button>
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="deleteProject(project.id)"
+            >
+              Usuń
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
   } @else {
-  <span class="no-projects">Brak projektów...</span>
+    <span class="no-projects">Brak projektów...</span>
   }
 </div>
