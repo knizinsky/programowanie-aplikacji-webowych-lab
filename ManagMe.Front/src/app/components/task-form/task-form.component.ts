@@ -70,6 +70,8 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   }
 
   saveTask(): void {
+    const assignedUserId = this.taskForm.value.assignedUserId;
+    const status: 'todo' | 'doing' | 'done' = assignedUserId ? 'doing' : 'todo';
     const task: Task = {
       id: this.taskToEdit ? this.taskToEdit.id : uuidv4(),
       name: this.taskForm.value.name,
@@ -77,11 +79,11 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       priority: this.taskForm.value.priority,
       storyId: this.taskForm.value.storyId,
       estimatedTime: this.taskForm.value.estimatedTime,
-      status: this.taskForm.value.status,
+      status: status,
       createdAt: this.taskToEdit?.createdAt || new Date(),
       startDate: this.taskToEdit?.startDate || null,
       endDate: this.taskToEdit?.endDate || null,
-      assignedUserId: this.taskForm.value.assignedUserId,
+      assignedUserId: assignedUserId,
     };
 
     if (this.taskToEdit) {

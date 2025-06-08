@@ -4,8 +4,8 @@
     <p><strong>Opis:</strong> {{ task.description }}</p>
     <p><strong>Priorytet:</strong> {{ task.priority }}</p>
     <p><strong>Przewidywany czas:</strong> {{ task.estimatedTime }} godz.</p>
-    <p><strong>Data dodania:</strong> {{ task.createdAt }}</p>
-    <p><strong>ID Historyjki:</strong> {{ task.storyId }}</p>
+    <p><strong>Data dodania:</strong> {{ task.createdAt | date }}</p>
+    <p><strong>Historyjka:</strong> {{ taskStoryName }}</p>
 
     @if (task.startDate) {
       <p><strong>Data startu:</strong> {{ task.startDate }}</p>
@@ -14,7 +14,7 @@
       <p><strong>Data zakończenia:</strong> {{ task.endDate }}</p>
     }
     @if (task.assignedUserId) {
-      <p><strong>Przypisany użytkownik:</strong> {{ task.assignedUserId }}</p>
+      <p><strong>Przypisany użytkownik:</strong> {{ taskUserName }}</p>
     }
     @if (task.status === "todo") {
       <mat-form-field appearance="outline" class="full-width">
@@ -42,6 +42,15 @@
         </button>
         <button mat-raised-button color="primary" (click)="markAsDone()">
           Oznacz jako zakończone
+        </button>
+        <button mat-raised-button color="warn" (click)="deleteTask()">
+          Usuń
+        </button>
+      </mat-card-actions>
+    } @else {
+      <mat-card-actions>
+        <button mat-raised-button color="warn" (click)="deleteTask()">
+          Usuń
         </button>
       </mat-card-actions>
     }

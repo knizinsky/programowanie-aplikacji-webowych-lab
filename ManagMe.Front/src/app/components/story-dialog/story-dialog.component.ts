@@ -20,7 +20,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Story } from '../../models/story.model';
 import { ProjectService } from '../../services/project.service';
 import { StoryService } from '../../services/story.service';
-import { User, UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-story-dialog',

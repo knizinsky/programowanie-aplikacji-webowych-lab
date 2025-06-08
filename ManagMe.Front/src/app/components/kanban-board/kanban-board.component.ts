@@ -32,7 +32,7 @@ export class KanbanBoardComponent implements OnInit {
     this.updateTasks();
   }
 
-  private updateTasks(): void {
+  updateTasks(): void {
     this.tasks = this.taskService.getTasks();
     this.todo = this.tasks.filter((task) => task.status === 'todo');
     this.doing = this.tasks.filter((task) => task.status === 'doing');

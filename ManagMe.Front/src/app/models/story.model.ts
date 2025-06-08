@@ -2,9 +2,12 @@ export interface Story {
   id: string;
   name: string;
   description: string;
-  priority: 'low' | 'medium' | 'high';
+  priority: StoryPriority;
   projectId: string | undefined;
   createdAt: Date;
-  status: 'todo' | 'doing' | 'done';
+  status: StoryStatus;
   ownerId: string;
 }
+
+type StoryStatus = 'todo' | 'doing' | 'done';
+type StoryPriority = 'low' | 'medium' | 'high';

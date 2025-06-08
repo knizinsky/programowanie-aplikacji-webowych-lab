@@ -21,7 +21,8 @@ import { Story } from '../../models/story.model';
 import { Task } from '../../models/task.model';
 import { StoryService } from '../../services/story.service';
 import { TaskService } from '../../services/task.service';
-import { User, UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-task-dialog',
@@ -82,7 +83,7 @@ export class TaskDialogComponent implements OnInit {
       description: form.description,
       priority: form.priority,
       estimatedTime: form.estimatedTime,
-      status: this.data.task?.status || 'todo',
+      status: form.assignedUserId ? 'doing' : 'todo',
       createdAt: this.data.task?.createdAt || new Date(),
       startDate: this.data.task?.startDate || null,
       endDate: this.data.task?.endDate || null,
