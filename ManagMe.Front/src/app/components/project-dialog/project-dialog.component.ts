@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -35,13 +35,11 @@ import { ProjectService } from '../../services/project.service';
 export class ProjectDialogComponent implements OnInit {
   projectForm!: FormGroup;
   isEdit = false;
+  private readonly fb = inject(FormBuilder);
+  private readonly dialogRef = inject(MatDialogRef<ProjectDialogComponent>);
+  private readonly projectService = inject(ProjectService);
 
-  constructor(
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<ProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Project | null,
-    private projectService: ProjectService,
-  ) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Project | null) {}
 
   ngOnInit(): void {
     this.isEdit = !!this.data;
@@ -58,9 +56,11 @@ export class ProjectDialogComponent implements OnInit {
       description: this.projectForm.value.description,
     };
 
-    this.isEdit
-      ? this.projectService.updateProject(project)
-      : this.projectService.saveProject(project);
+    if (this.isEdit) {
+      this.projectService.updateProject(project);
+    } else {
+      this.projectService.saveProject(project);
+    }
 
     this.dialogRef.close();
   }

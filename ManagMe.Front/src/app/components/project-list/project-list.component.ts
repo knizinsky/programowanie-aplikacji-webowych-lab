@@ -1,17 +1,17 @@
 import { NgClass } from '@angular/common';
 import {
   Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
   Output,
+  EventEmitter,
+  inject,
+  effect,
+  signal,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { Subscription } from 'rxjs';
 import { Project } from '../../models/project.model';
-import { inject } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-project-list',
@@ -19,49 +19,48 @@ import { ProjectService } from '../../services/project.service';
   styleUrls: ['./project-list.component.scss'],
   imports: [MatCardModule, MatButtonModule, NgClass],
 })
-export class ProjectListComponent implements OnInit, OnDestroy {
-  private projectsChangeSub = new Subscription();
-  projects: Project[] = [];
-  selectedProjectId: string | null = null;
+export class ProjectListComponent {
+  private projectService = inject(ProjectService);
+  private destroyRef = takeUntilDestroyed();
 
   @Output() editRequested = new EventEmitter<Project>();
+
+  readonly projects = signal<Project[]>([]);
+  readonly selectedProjectId = signal<string | null>(null);
+
+  constructor() {
+    this.init();
+  }
+
+  private init(): void {
+    this.loadProjects();
+
+    this.projectService.onProjectsChange
+      .pipe(this.destroyRef)
+      .subscribe(() => this.loadProjects());
+
+    effect(() => {
+      const current = this.projectService.currentProject.value;
+      this.selectedProjectId.set(current?.id || null);
+    });
+  }
+
+  private async loadProjects(): Promise<void> {
+    const data = await this.projectService.getProjects();
+    this.projects.set(data);
+  }
 
   editProject(project: Project): void {
     this.editRequested.emit(project);
   }
 
-  projectService = inject(ProjectService);
-
-  async ngOnInit(): Promise<void> {
-    await this.getProjects();
-    this.subToProjectsChange();
-    this.selectedProjectId =
-      this.projectService.currentProject.value?.id || null;
-  }
-
-  private subToProjectsChange(): void {
-    this.projectsChangeSub = this.projectService.onProjectsChange.subscribe(
-      async () => {
-        await this.getProjects();
-      },
-    );
-  }
-
-  private async getProjects(): Promise<void> {
-    this.projects = await this.projectService.getProjects();
-  }
-
   async deleteProject(id: string): Promise<void> {
     await this.projectService.deleteProject(id);
-    await this.getProjects();
+    await this.loadProjects();
   }
 
   selectProject(project: Project): void {
     this.projectService.selectCurrentProject(project);
-    this.selectedProjectId = project.id;
-  }
-
-  ngOnDestroy(): void {
-    this.projectsChangeSub.unsubscribe();
+    this.selectedProjectId.set(project.id);
   }
 }

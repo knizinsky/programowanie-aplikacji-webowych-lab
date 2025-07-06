@@ -21,7 +21,7 @@ describe("Dodawanie, edytowanie i usuwanie nowej historyjki", () => {
     await page.click('[data-id="password-field"]');
     await page.type('[data-id="password-field"]', "admin123");
     await page.click('[data-id="login-button"]');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await page.waitForSelector('[data-id="add-project-btn"]');
     await page.click('[data-id="add-project-btn"]');
 
     await page.click('[data-id="new-project-name"]');

@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
@@ -32,19 +33,17 @@ import { DatePipe } from '@angular/common';
   ],
 })
 export class TaskDetailsComponent implements OnInit {
-  @Input() task!: Task;
-  @Output() editRequested = new EventEmitter<Task>();
-  @Output() deleted = new EventEmitter<string>();
+  private readonly taskService = inject(TaskService);
+  private readonly userService = inject(UserService);
+  private readonly storyService = inject(StoryService);
+  private readonly cd = inject(ChangeDetectorRef);
   users: User[] = [];
   taskStoryName: string | undefined;
   taskUserName: string | undefined;
 
-  constructor(
-    private readonly taskService: TaskService,
-    private readonly userService: UserService,
-    private readonly storyService: StoryService,
-    private readonly cd: ChangeDetectorRef,
-  ) {}
+  @Input() task!: Task;
+  @Output() editRequested = new EventEmitter<Task>();
+  @Output() deleted = new EventEmitter<string>();
 
   async ngOnInit(): Promise<void> {
     this.users = await this.userService.getUsers();

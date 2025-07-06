@@ -7,10 +7,10 @@ import { StorySupabaseService } from './story-supabase.service';
   providedIn: 'root',
 })
 export class StoryService {
+  private readonly storySupabaseService = inject(StorySupabaseService);
   readonly onStoriesChange = new Subject<void>();
   readonly currentEditingStory = new BehaviorSubject<Story | null>(null);
 
-  storySupabaseService = inject(StorySupabaseService);
 
   async getStories(): Promise<Story[]> {
     return this.storySupabaseService.getStories();

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -40,19 +40,17 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./story-dialog.component.scss'],
 })
 export class StoryDialogComponent implements OnInit {
+  private readonly fb = inject(FormBuilder);
+  private readonly storyService = inject(StoryService);
+  private readonly userService = inject(UserService);
+  private readonly projectService = inject(ProjectService);
+  private readonly dialogRef = inject(MatDialogRef<StoryDialogComponent>);
+  public readonly data = inject<{ story: Story | null; projectId: string }>(
+    MAT_DIALOG_DATA,
+  );
+  private user!: User | null;
   storyForm!: FormGroup;
   isEdit = false;
-  user!: User | null;
-
-  constructor(
-    private readonly fb: FormBuilder,
-    private readonly storyService: StoryService,
-    private readonly userService: UserService,
-    private readonly dialogRef: MatDialogRef<StoryDialogComponent>,
-    private readonly projectService: ProjectService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: { story: Story | null; projectId: string },
-  ) {}
 
   ngOnInit(): void {
     this.isEdit = !!this.data.story;
@@ -81,9 +79,11 @@ export class StoryDialogComponent implements OnInit {
       ownerId: this.user?.id,
     };
 
-    this.isEdit
-      ? this.storyService.updateStory(story)
-      : this.storyService.saveStory(story);
+    if (this.isEdit) {
+      this.storyService.updateStory(story);
+    } else {
+      this.storyService.saveStory(story);
+    }
 
     this.dialogRef.close();
   }

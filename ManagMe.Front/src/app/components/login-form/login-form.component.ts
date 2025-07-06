@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,10 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -31,15 +31,12 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
+  private readonly authService = inject(AuthService);
+  private readonly fb = inject(FormBuilder);
+  private readonly snackBar = inject(MatSnackBar);
   loginForm!: FormGroup;
 
   @Output() loggedIn = new EventEmitter<void>();
-
-  constructor(
-    private readonly authService: AuthService,
-    private readonly fb: FormBuilder,
-    private readonly snackBar: MatSnackBar,
-  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -49,9 +46,15 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    if (this.loginForm.valid) {
-      const { login, password } = this.loginForm.value;
-      this.authService.login(login!, password!).subscribe({
+    if (!this.loginForm.valid) {
+      return;
+    }
+
+    const { login, password } = this.loginForm.value;
+    this.authService
+      .login(login!, password!)
+      .pipe(first())
+      .subscribe({
         next: () => this.loggedIn.emit(),
         error: () => {
           this.snackBar.open('Nieprawidłowy login lub hasło.', 'Zamknij', {
@@ -61,6 +64,5 @@ export class LoginFormComponent implements OnInit {
           });
         },
       });
-    }
   }
 }

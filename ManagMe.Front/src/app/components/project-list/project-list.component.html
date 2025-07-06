@@ -1,10 +1,10 @@
 <div class="project-list">
-  @if (projects.length) {
+  @if (projects().length) {
     <div class="project-cards">
-      @for (project of projects; track $index) {
+      @for (project of projects(); track $index) {
         <mat-card
           [ngClass]="{
-            'selected-project': selectedProjectId === project?.id,
+            'selected-project': selectedProjectId() === project?.id,
             'project-card': true,
           }"
         >

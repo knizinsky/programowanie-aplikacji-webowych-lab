@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -22,15 +22,14 @@ import { ProjectService } from '../../services/project.service';
   ],
 })
 export class ProjectFormComponent implements OnInit, OnDestroy {
+  private readonly projectService = inject(ProjectService);
+  private readonly fb = inject(FormBuilder);
   private editingProjectSub = new Subscription();
   projectForm: FormGroup;
   projectToEdit!: Project | null;
   private cancelEdit = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private projectService: ProjectService,
-  ) {
+  constructor() {
     this.projectForm = this.fb.group({
       name: '',
       description: '',

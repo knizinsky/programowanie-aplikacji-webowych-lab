@@ -7,11 +7,11 @@ import { ProjectSupabaseService } from './project-supabase.service';
   providedIn: 'root',
 })
 export class ProjectService {
+  private readonly projectSupabaseService = inject(ProjectSupabaseService);
   readonly onProjectsChange = new Subject<void>();
   readonly currentEditingProject = new BehaviorSubject<Project | null>(null);
   readonly currentProject = new BehaviorSubject<Project | null>(null);
 
-  projectSupabaseService = inject(ProjectSupabaseService);
 
   async getProjects(): Promise<Project[]> {
     return this.projectSupabaseService.getProjects();
@@ -39,6 +39,5 @@ export class ProjectService {
 
   selectCurrentProject(project: Project): void {
     this.currentProject.next(project);
-    // Optionally, you can persist the selected project in Supabase or just keep it in memory
   }
 }

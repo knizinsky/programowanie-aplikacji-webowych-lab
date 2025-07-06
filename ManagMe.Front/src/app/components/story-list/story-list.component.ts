@@ -1,22 +1,22 @@
 import {
   Component,
   EventEmitter,
+  inject,
   OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Story } from '../../models/story.model';
 import { ProjectService } from '../../services/project.service';
 import { StoryService } from '../../services/story.service';
 
-export type StoryWithProjectId = {
+export interface StoryWithProjectId {
   story: Story;
   projectId: string | null;
-};
+}
 
 @Component({
   selector: 'app-story-list',
@@ -25,6 +25,8 @@ export type StoryWithProjectId = {
   imports: [MatCardModule, MatButtonModule],
 })
 export class StoryListComponent implements OnInit, OnDestroy {
+  private readonly storyService = inject(StoryService);
+  private readonly projectService = inject(ProjectService);
   private storiesChangeSub = new Subscription();
   private currentProjectSub = new Subscription();
   stories: Story[] = [];
@@ -43,12 +45,6 @@ export class StoryListComponent implements OnInit, OnDestroy {
   get doneStories(): Story[] {
     return this.stories.filter((story) => story.status === 'done');
   }
-
-  constructor(
-    private storyService: StoryService,
-    private projectService: ProjectService,
-    private dialog: MatDialog,
-  ) {}
 
   ngOnInit(): void {
     this.subToStoriesChange();

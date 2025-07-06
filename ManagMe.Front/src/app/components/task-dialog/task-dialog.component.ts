@@ -90,9 +90,11 @@ export class TaskDialogComponent implements OnInit {
       storyId: form.storyId,
     };
 
-    this.isEdit
-      ? this.taskService.updateTask(task)
-      : this.taskService.saveTask(task);
+    if (this.isEdit) {
+      this.taskService.updateTask(task);
+    } else {
+      this.taskService.saveTask(task);
+    }
 
     this.dialogRef.close();
   }

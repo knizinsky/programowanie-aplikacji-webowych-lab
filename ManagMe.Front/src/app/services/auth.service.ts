@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private readonly http = inject(HttpClient);
   private readonly apiUrl = 'http://localhost:3000';
   private readonly accessTokenKey = 'token';
   private readonly refreshTokenKey = 'refreshToken';
-
-  constructor(private readonly http: HttpClient) {}
 
   login(login: string, password: string) {
     return this.http

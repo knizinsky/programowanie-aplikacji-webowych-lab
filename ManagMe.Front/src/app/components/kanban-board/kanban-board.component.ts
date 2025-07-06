@@ -2,6 +2,8 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  inject,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -11,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
 import { TaskDetailsComponent } from '../task-details/task-details.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-kanban-board',
@@ -23,7 +26,10 @@ import { TaskDetailsComponent } from '../task-details/task-details.component';
     MatDividerModule,
   ],
 })
-export class KanbanBoardComponent implements OnInit {
+export class KanbanBoardComponent implements OnInit, OnDestroy {
+  private readonly taskService = inject(TaskService);
+  private readonly cd = inject(ChangeDetectorRef);
+  private taskChangeSub = new Subscription();
   tasks: Task[] = [];
   todo: Task[] = [];
   doing: Task[] = [];
@@ -31,23 +37,22 @@ export class KanbanBoardComponent implements OnInit {
 
   @Output() editRequested = new EventEmitter<Task>();
 
-  constructor(
-    private readonly taskService: TaskService,
-    private readonly cd: ChangeDetectorRef,
-  ) {}
-
   ngOnInit(): void {
-    this.taskService.onTasksChange.subscribe(() => {
+    this.taskChangeSub = this.taskService.onTasksChange.subscribe(() => {
       this.updateTasks();
       this.cd.markForCheck();
     });
     this.updateTasks();
   }
 
- async updateTasks(): Promise<void> {
+  async updateTasks(): Promise<void> {
     this.tasks = await this.taskService.getTasks();
     this.todo = this.tasks.filter((task) => task.status === 'todo');
     this.doing = this.tasks.filter((task) => task.status === 'doing');
     this.done = this.tasks.filter((task) => task.status === 'done');
+  }
+
+  ngOnDestroy(): void {
+    this.taskChangeSub.unsubscribe();
   }
 }

@@ -1,5 +1,5 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -24,19 +24,18 @@ import { User } from '../../models/user.model';
   ],
 })
 export class UserListComponent implements OnInit {
+  private readonly userService = inject(UserService);
   users: User[] = [];
   currentUser!: User | null;
 
-  @Output() onLogout = new EventEmitter<void>();
-
-  constructor(private readonly userService: UserService) {}
+  @Output() logout = new EventEmitter<void>();
 
   async ngOnInit(): Promise<void> {
     this.users = await this.userService.getUsers();
     this.currentUser = await firstValueFrom(this.userService.getUser());
   }
 
-  logout(): void {
-    this.onLogout.emit();
+  onLogout(): void {
+    this.logout.emit();
   }
 }

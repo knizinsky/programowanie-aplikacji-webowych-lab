@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
@@ -26,17 +26,16 @@ import { User, UserService } from '../../services/user.service';
   ],
 })
 export class StoryFormComponent implements OnInit, OnDestroy {
+  private readonly fb = inject(FormBuilder);
+  private readonly storyService = inject(StoryService);
+  private readonly userService = inject(UserService);
+  private readonly projectService = inject(ProjectService);
   private editingStorySub = new Subscription();
   storyForm: FormGroup;
   storyToEdit!: Story | null;
   user!: User;
 
-  constructor(
-    private readonly fb: FormBuilder,
-    private readonly storyService: StoryService,
-    private readonly userService: UserService,
-    private readonly projectService: ProjectService,
-  ) {
+  constructor() {
     this.storyForm = this.fb.group({
       name: '',
       description: '',
